@@ -15,22 +15,21 @@ public class Bibot {
     while (true) {
       String command = scanner.nextLine();
 
+      System.out.println("    _______________________________________");
+      
       if (command.equals("bye")) {
-        System.out.println("    _______________________________________");
         System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    _______________________________________\n");
         scanner.close();
+        System.out.println("    _______________________________________\n");
         break;
       } else if (command.equals("list")) {
-        System.out.println("    _______________________________________");
         taskList.display();
-        System.out.println("    _______________________________________\n");
       } else {
-        System.out.println("    _______________________________________");
         System.out.printf("    added: %s\n", command);
-        System.out.println("    _______________________________________\n");
         taskList.add(command);
       }
+
+      System.out.println("    _______________________________________\n");
     }
 
   }
