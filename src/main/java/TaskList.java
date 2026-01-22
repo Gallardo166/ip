@@ -2,8 +2,8 @@ public class TaskList {
   private Task[] tasks = new Task[100];
   private int latestId = 0;
 
-  public void add(String description) {
-    tasks[latestId] = new Task(description);
+  public void add(Task task) {
+    tasks[latestId] = task;
     latestId += 1;
   }
 
@@ -23,5 +23,9 @@ public class TaskList {
     for (int i = 0; i < latestId; i++) {
       System.out.printf("    %d. %s\n", i + 1, tasks[i]);
     }
+  }
+
+  public void printLength() {
+    System.out.printf("    Now you have %d tasks in the list.\n", latestId);
   }
 }

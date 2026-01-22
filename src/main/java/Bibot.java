@@ -24,6 +24,7 @@ public class Bibot {
         break;
         
       } else if (command.equals("list")) {
+        System.out.println("Here are the tasks in your list:\n");
         taskList.display();
         
       } else if (command.startsWith("mark ")) {
@@ -39,9 +40,34 @@ public class Bibot {
         System.out.println("   OK, I've marked this task as not done yet:\n"); 
         System.out.printf("    %s\n", taskList.get(index));
         
+      } else if (command.startsWith("todo ")) {
+        String description = command.replaceFirst("todo ", "");
+        ToDo todo = new ToDo(description);
+        taskList.add(todo);
+        System.out.println("    Got it. I've added this task:\n");
+        System.out.printf("      %s\n", todo);
+        taskList.printLength();
+
+      } else if (command.startsWith("deadline ")) {
+        String[] splitCommand = command.split(" /by ");
+        String description = splitCommand[0].replaceFirst("deadline ", "");
+        String date = splitCommand[1];
+        Deadline deadline = new Deadline(description, date);
+        taskList.add(deadline);
+        System.out.println("    Got it. I've added this task:\n");
+        System.out.printf("      %s\n", deadline);
+        taskList.printLength();
+        
       } else {
-        System.out.printf("    added: %s\n", command);
-        taskList.add(command);
+        String[] splitCommand = command.split(" /from ");
+        String description = splitCommand[0].replaceFirst("event ", "");
+        String startDate = splitCommand[1].split(" /to ")[0];
+        String endDate = splitCommand[1].split(" /to ")[1];
+        Event event = new Event(description, startDate, endDate);
+        taskList.add(event);
+        System.out.println("    Got it. I've added this task:\n");
+        System.out.printf("      %s\n", event);
+        taskList.printLength();
 
       }
 
