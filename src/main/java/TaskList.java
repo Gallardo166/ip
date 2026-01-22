@@ -1,10 +1,22 @@
 public class TaskList {
-  private String[] tasks = new String[100];
+  private Task[] tasks = new Task[100];
   private int latestId = 0;
 
-  public void add(String task) {
-    tasks[latestId] = task;
+  public void add(String description) {
+    tasks[latestId] = new Task(description);
     latestId += 1;
+  }
+
+  public void markTask(int index) {
+    tasks[index].markAsDone();
+  }
+
+  public void unmarkTask(int index) {
+    tasks[index].markAsUndone();
+  }
+
+  public Task get(int index) {
+    return tasks[index]; 
   }
 
   public void display() {

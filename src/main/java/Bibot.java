@@ -24,6 +24,17 @@ public class Bibot {
         break;
       } else if (command.equals("list")) {
         taskList.display();
+      } else if (command.startsWith("mark ")) {
+        //Solution below adapted from https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
+        int index = Integer.parseInt(command.split(" ")[1]) - 1;
+        taskList.markTask(index);
+        System.out.println("    Nice! I've marked this task as done:\n");
+        System.out.printf("    %s\n", taskList.get(index));
+      } else if (command.startsWith("unmark ")) {
+        int index = Integer.parseInt(command.split(" ")[1]) - 1;
+        taskList.unmarkTask(index);
+        System.out.println("   OK, I've marked this task as not done yet:\n"); 
+        System.out.printf("    %s\n", taskList.get(index));
       } else {
         System.out.printf("    added: %s\n", command);
         taskList.add(command);
