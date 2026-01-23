@@ -26,6 +26,9 @@ public class TaskList {
   }
 
   public void printLength() {
-    System.out.printf("     Now you have %d tasks in the list.\n", latestId);
+    String taskNum = latestId == 1
+                     ? "1 task"
+                     : String.format("%d tasks", latestId);
+    System.out.printf("     Now you have %s in the list.\n", taskNum);
   }
 }
