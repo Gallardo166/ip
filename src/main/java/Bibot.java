@@ -68,7 +68,7 @@ public class Bibot {
             taskList.printLength();
           }
 
-        } else {
+        } else if (command.startsWith("event ")) {
           String[] splitCommand = command.split(" /from ");
           if (splitCommand.length != 2 || splitCommand[1].split(" /to ").length != 2) {
             throw new BibotException(
@@ -83,6 +83,9 @@ public class Bibot {
             System.out.printf("      %s\n", event);
             taskList.printLength();
           }
+
+        } else {
+          throw new BibotException("I'm not familiar with that command..");
 
         }
       } catch (BibotException e) {
