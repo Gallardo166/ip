@@ -84,6 +84,18 @@ public class Bibot {
             taskList.printLength();
           }
 
+        } else if (command.startsWith("delete ")) {
+          String[] splitCommand = command.split(" +");
+          if (splitCommand.length != 2) {
+            throw new BibotException("Please specify the index to delete!");
+          } else {
+            int index = Integer.parseInt(command.split(" +")[1]) - 1;
+            Task deletedTask = taskList.deleteTask(index);
+            System.out.println("     Noted. I've removed this task:");
+            System.out.printf("     %s\n", deletedTask);
+            taskList.printLength();
+          }
+
         } else {
           throw new BibotException("I'm not familiar with that command..");
 
