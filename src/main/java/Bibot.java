@@ -24,27 +24,27 @@ public class Bibot {
         break;
         
       } else if (command.equals("list")) {
-        System.out.println("     Here are the tasks in your list:\n");
+        System.out.println("     Here are the tasks in your list:");
         taskList.display();
         
       } else if (command.startsWith("mark ")) {
         //Solution below adapted from https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
         int index = Integer.parseInt(command.split(" ")[1]) - 1;
         taskList.markTask(index);
-        System.out.println("     Nice! I've marked this task as done:\n");
+        System.out.println("     Nice! I've marked this task as done:");
         System.out.printf("      %s\n", taskList.get(index));
         
       } else if (command.startsWith("unmark ")) {
         int index = Integer.parseInt(command.split(" ")[1]) - 1;
         taskList.unmarkTask(index);
-        System.out.println("     OK, I've marked this task as not done yet:\n"); 
+        System.out.println("     OK, I've marked this task as not done yet:"); 
         System.out.printf("      %s\n", taskList.get(index));
         
       } else if (command.startsWith("todo ")) {
         String description = command.replaceFirst("todo ", "");
         ToDo todo = new ToDo(description);
         taskList.add(todo);
-        System.out.println("     Got it. I've added this task:\n");
+        System.out.println("     Got it. I've added this task:");
         System.out.printf("      %s\n", todo);
         taskList.printLength();
 
@@ -54,7 +54,7 @@ public class Bibot {
         String date = splitCommand[1];
         Deadline deadline = new Deadline(description, date);
         taskList.add(deadline);
-        System.out.println("     Got it. I've added this task:\n");
+        System.out.println("     Got it. I've added this task:");
         System.out.printf("      %s\n", deadline);
         taskList.printLength();
         
@@ -65,7 +65,7 @@ public class Bibot {
         String endDate = splitCommand[1].split(" /to ")[1];
         Event event = new Event(description, startDate, endDate);
         taskList.add(event);
-        System.out.println("     Got it. I've added this task:\n");
+        System.out.println("     Got it. I've added this task:");
         System.out.printf("      %s\n", event);
         taskList.printLength();
 
