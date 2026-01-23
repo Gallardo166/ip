@@ -56,24 +56,33 @@ public class Bibot {
 
         } else if (command.startsWith("deadline ")) {
           String[] splitCommand = command.split(" /by ");
-          String description = splitCommand[0].replaceFirst("deadline ", "");
-          String date = splitCommand[1];
-          Deadline deadline = new Deadline(description, date);
-          taskList.add(deadline);
-          System.out.println("     Got it. I've added this task:");
-          System.out.printf("      %s\n", deadline);
-          taskList.printLength();
+          if (splitCommand.length != 2) {
+            throw new BibotException("Please use this format:\n     deadline [description] /by [datetime]");
+          } else {
+            String description = splitCommand[0].replaceFirst("deadline ", "");
+            String date = splitCommand[1];
+            Deadline deadline = new Deadline(description, date);
+            taskList.add(deadline);
+            System.out.println("     Got it. I've added this task:");
+            System.out.printf("      %s\n", deadline);
+            taskList.printLength();
+          }
 
         } else {
           String[] splitCommand = command.split(" /from ");
-          String description = splitCommand[0].replaceFirst("event ", "");
-          String startDate = splitCommand[1].split(" /to ")[0];
-          String endDate = splitCommand[1].split(" /to ")[1];
-          Event event = new Event(description, startDate, endDate);
-          taskList.add(event);
-          System.out.println("     Got it. I've added this task:");
-          System.out.printf("      %s\n", event);
-          taskList.printLength();
+          if (splitCommand.length != 2 || splitCommand[1].split(" /to ").length != 2) {
+            throw new BibotException(
+                "Please use this format:\n     event [description] /from [datetime] /to [datetime]");
+          } else {
+            String description = splitCommand[0].replaceFirst("event ", "");
+            String startDate = splitCommand[1].split(" /to ")[0];
+            String endDate = splitCommand[1].split(" /to ")[1];
+            Event event = new Event(description, startDate, endDate);
+            taskList.add(event);
+            System.out.println("     Got it. I've added this task:");
+            System.out.printf("      %s\n", event);
+            taskList.printLength();
+          }
 
         }
       } catch (BibotException e) {
