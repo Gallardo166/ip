@@ -1,0 +1,11 @@
+list
+todo Read book
+list
+mark 1
+list
+unmark 1
+deadline Grocery shopping /by Friday
+event Concert /from Saturday 12pm /to 6pm
+mark 3
+list
+bye

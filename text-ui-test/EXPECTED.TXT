@@ -1,7 +1,63 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    _______________________________________
+     Hello! I'm Bibot!
+     What can I do for you?
+    _______________________________________
+
+    _______________________________________
+     Here are the tasks in your list:
+    _______________________________________
+
+    _______________________________________
+     Got it. I've added this task:
+      [T][ ] Read book
+     Now you have 1 task in the list.
+    _______________________________________
+
+    _______________________________________
+     Here are the tasks in your list:
+      1. [T][ ] Read book
+    _______________________________________
+
+    _______________________________________
+     Nice! I've marked this task as done:
+      [T][X] Read book
+    _______________________________________
+
+    _______________________________________
+     Here are the tasks in your list:
+      1. [T][X] Read book
+    _______________________________________
+
+    _______________________________________
+     OK, I've marked this task as not done yet:
+      [T][ ] Read book
+    _______________________________________
+
+    _______________________________________
+     Got it. I've added this task:
+      [D][ ] Grocery shopping (by: Friday)
+     Now you have 2 tasks in the list.
+    _______________________________________
+
+    _______________________________________
+     Got it. I've added this task:
+      [E][ ] Concert (from: Saturday 12pm to: 6pm)
+     Now you have 3 tasks in the list.
+    _______________________________________
+
+    _______________________________________
+     Nice! I've marked this task as done:
+      [E][X] Concert (from: Saturday 12pm to: 6pm)
+    _______________________________________
+
+    _______________________________________
+     Here are the tasks in your list:
+      1. [T][ ] Read book
+      2. [D][ ] Grocery shopping (by: Friday)
+      3. [E][X] Concert (from: Saturday 12pm to: 6pm)
+    _______________________________________
+
+    _______________________________________
+     Bye. Hope to see you again soon!
+    _______________________________________
 
