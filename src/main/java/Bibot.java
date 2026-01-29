@@ -1,112 +1,112 @@
 import java.util.Scanner;
 
 public class Bibot {
-  public static void main(String[] args) {
-    System.out.println("    _______________________________________");
-    System.out.println("     Hello! I'm Bibot!");
-    System.out.println("     What can I do for you?");
-    System.out.println("    _______________________________________\n");
-
-    TaskList taskList = new TaskList();
-
-    // Solution below inspired by https://www.w3schools.com/java/java_user_input.asp
-    Scanner scanner = new Scanner(System.in);
-
-    while (true) {
-      try {
-        String command = scanner.nextLine();
-
+    public static void main(String[] args) {
         System.out.println("    _______________________________________");
+        System.out.println("     Hello! I'm Bibot!");
+        System.out.println("     What can I do for you?");
+        System.out.println("    _______________________________________\n");
 
-        if (command.equals("bye")) {
-          scanner.close();
-          System.out.println("     Bye. Hope to see you again soon!");
-          System.out.println("    _______________________________________\n");
-          break;
+        TaskList taskList = new TaskList();
 
-        } else if (command.equals("list")) {
-          System.out.println("     Here are the tasks in your list:");
-          taskList.display();
+        // Solution below inspired by https://www.w3schools.com/java/java_user_input.asp
+        Scanner scanner = new Scanner(System.in);
 
-        } else if (command.startsWith("mark ")) {
-          // Solution below adapted from
-          // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
-          int index = Integer.parseInt(command.split(" ")[1]) - 1;
-          taskList.markTask(index);
-          System.out.println("     Nice! I've marked this task as done:");
-          System.out.printf("      %s\n", taskList.get(index));
+        while (true) {
+            try {
+                String command = scanner.nextLine();
 
-        } else if (command.startsWith("unmark ")) {
-          int index = Integer.parseInt(command.split(" ")[1]) - 1;
-          taskList.unmarkTask(index);
-          System.out.println("     OK, I've marked this task as not done yet:");
-          System.out.printf("      %s\n", taskList.get(index));
+                System.out.println("    _______________________________________");
 
-        } else if (command.startsWith("todo ")) {
-          if (command.split(" +").length < 2) {
-            throw new BibotException("Please write the task description!");
-          } else {
-            String description = command.replaceFirst("todo +", "");
-            ToDo todo = new ToDo(description);
-            taskList.add(todo);
-            System.out.println("     Got it. I've added this task:");
-            System.out.printf("      %s\n", todo);
-            taskList.printLength();
-          }
+                if (command.equals("bye")) {
+                    scanner.close();
+                    System.out.println("     Bye. Hope to see you again soon!");
+                    System.out.println("    _______________________________________\n");
+                    break;
 
-        } else if (command.startsWith("deadline ")) {
-          String[] splitCommand = command.split(" /by ");
-          if (splitCommand.length != 2) {
-            throw new BibotException("Please use this format:\n     deadline [description] /by [datetime]");
-          } else {
-            String description = splitCommand[0].replaceFirst("deadline ", "");
-            String date = splitCommand[1];
-            Deadline deadline = new Deadline(description, date);
-            taskList.add(deadline);
-            System.out.println("     Got it. I've added this task:");
-            System.out.printf("      %s\n", deadline);
-            taskList.printLength();
-          }
+                } else if (command.equals("list")) {
+                    System.out.println("     Here are the tasks in your list:");
+                    taskList.display();
 
-        } else if (command.startsWith("event ")) {
-          String[] splitCommand = command.split(" /from ");
-          if (splitCommand.length != 2 || splitCommand[1].split(" /to ").length != 2) {
-            throw new BibotException(
-                "Please use this format:\n     event [description] /from [datetime] /to [datetime]");
-          } else {
-            String description = splitCommand[0].replaceFirst("event ", "");
-            String startDate = splitCommand[1].split(" /to ")[0];
-            String endDate = splitCommand[1].split(" /to ")[1];
-            Event event = new Event(description, startDate, endDate);
-            taskList.add(event);
-            System.out.println("     Got it. I've added this task:");
-            System.out.printf("      %s\n", event);
-            taskList.printLength();
-          }
+                } else if (command.startsWith("mark ")) {
+                    // Solution below adapted from
+                    // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    taskList.markTask(index);
+                    System.out.println("     Nice! I've marked this task as done:");
+                    System.out.printf("      %s\n", taskList.get(index));
 
-        } else if (command.startsWith("delete ")) {
-          String[] splitCommand = command.split(" +");
-          if (splitCommand.length != 2) {
-            throw new BibotException("Please specify the index to delete!");
-          } else {
-            int index = Integer.parseInt(command.split(" +")[1]) - 1;
-            Task deletedTask = taskList.deleteTask(index);
-            System.out.println("     Noted. I've removed this task:");
-            System.out.printf("     %s\n", deletedTask);
-            taskList.printLength();
-          }
+                } else if (command.startsWith("unmark ")) {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    taskList.unmarkTask(index);
+                    System.out.println("     OK, I've marked this task as not done yet:");
+                    System.out.printf("      %s\n", taskList.get(index));
 
-        } else {
-          throw new BibotException("I'm not familiar with that command..");
+                } else if (command.startsWith("todo ")) {
+                    if (command.split(" +").length < 2) {
+                        throw new BibotException("Please write the task description!");
+                    } else {
+                        String description = command.replaceFirst("todo +", "");
+                        ToDo todo = new ToDo(description);
+                        taskList.add(todo);
+                        System.out.println("     Got it. I've added this task:");
+                        System.out.printf("      %s\n", todo);
+                        taskList.printLength();
+                    }
 
+                } else if (command.startsWith("deadline ")) {
+                    String[] splitCommand = command.split(" /by ");
+                    if (splitCommand.length != 2) {
+                        throw new BibotException("Please use this format:\n     deadline [description] /by [datetime]");
+                    } else {
+                        String description = splitCommand[0].replaceFirst("deadline ", "");
+                        String date = splitCommand[1];
+                        Deadline deadline = new Deadline(description, date);
+                        taskList.add(deadline);
+                        System.out.println("     Got it. I've added this task:");
+                        System.out.printf("      %s\n", deadline);
+                        taskList.printLength();
+                    }
+
+                } else if (command.startsWith("event ")) {
+                    String[] splitCommand = command.split(" /from ");
+                    if (splitCommand.length != 2 || splitCommand[1].split(" /to ").length != 2) {
+                        throw new BibotException(
+                                "Please use this format:\n     event [description] /from [datetime] /to [datetime]");
+                    } else {
+                        String description = splitCommand[0].replaceFirst("event ", "");
+                        String startDate = splitCommand[1].split(" /to ")[0];
+                        String endDate = splitCommand[1].split(" /to ")[1];
+                        Event event = new Event(description, startDate, endDate);
+                        taskList.add(event);
+                        System.out.println("     Got it. I've added this task:");
+                        System.out.printf("      %s\n", event);
+                        taskList.printLength();
+                    }
+
+                } else if (command.startsWith("delete ")) {
+                    String[] splitCommand = command.split(" +");
+                    if (splitCommand.length != 2) {
+                        throw new BibotException("Please specify the index to delete!");
+                    } else {
+                        int index = Integer.parseInt(command.split(" +")[1]) - 1;
+                        Task deletedTask = taskList.deleteTask(index);
+                        System.out.println("     Noted. I've removed this task:");
+                        System.out.printf("     %s\n", deletedTask);
+                        taskList.printLength();
+                    }
+
+                } else {
+                    throw new BibotException("I'm not familiar with that command..");
+
+                }
+            } catch (BibotException e) {
+                System.out.printf("     %s\n", e.getMessage());
+
+            }
+
+            System.out.println("    _______________________________________\n");
         }
-      } catch (BibotException e) {
-        System.out.printf("     %s\n", e.getMessage());
 
-      }
-
-      System.out.println("    _______________________________________\n");
     }
-
-  }
 }
