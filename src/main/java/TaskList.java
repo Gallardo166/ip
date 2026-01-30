@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int latestId = -1;
 
@@ -53,5 +54,9 @@ public class TaskList {
                          ? "1 task"
                          : String.format("%d tasks", latestId + 1);
         System.out.printf("     Now you have %s in the list.\n", taskNum);
+    }
+
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
     }
 }

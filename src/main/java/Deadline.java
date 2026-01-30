@@ -6,8 +6,18 @@ public class Deadline extends Task {
         this.date = date;
     }
 
+    public Deadline(String description, String date, boolean isDone) {
+        super(description, isDone);
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), date);
+    }
+
+    @Override
+    public String fileString() {
+        return "D | " + super.fileString() + " | " + this.date;
     }
 }
