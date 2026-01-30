@@ -1,6 +1,6 @@
 public class BibotException extends Exception {
-  
-  public BibotException(String message) {
-    super(message);
-  }
+
+    public BibotException(String message) {
+        super(message);
+    }
 }
