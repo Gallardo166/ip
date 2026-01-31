@@ -52,29 +52,27 @@ public class Bibot {
 
     public static void main(String[] args) {
         TaskList taskList = loadTasks();
+        Ui ui = new Ui();
 
-        System.out.println("    _______________________________________");
-        System.out.println("     Hello! I'm Bibot!");
-        System.out.println("     What can I do for you?");
-        System.out.println("    _______________________________________\n");
-
-        // Solution below inspired by https://www.w3schools.com/java/java_user_input.asp
-        Scanner scanner = new Scanner(System.in);
+        ui.displayTopLine();
+        ui.displayMessage("Hello! I'm Bibot!");
+        ui.displayMessage("What can I do for you?");
+        ui.displayBottomLine();
 
         while (true) {
             try {
-                String command = scanner.nextLine();
+                String command = ui.readCommand();
 
-                System.out.println("    _______________________________________");
+                ui.displayTopLine();
 
                 if (command.equals("bye")) {
-                    scanner.close();
-                    System.out.println("     Bye. Hope to see you again soon!");
-                    System.out.println("    _______________________________________\n");
+                    ui.end();
+                    ui.displayMessage("Bye. Hope to see you again soon!");
+                    ui.displayBottomLine();
                     break;
 
                 } else if (command.equals("list")) {
-                    System.out.println("     Here are the tasks in your list:");
+                    ui.displayMessage("Here are the tasks in your list:");
                     taskList.display();
 
                 } else if (command.startsWith("mark ")) {
@@ -83,15 +81,15 @@ public class Bibot {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
                     taskList.markTask(index);
                     saveTasks(taskList);
-                    System.out.println("     Nice! I've marked this task as done:");
-                    System.out.printf("      %s\n", taskList.get(index));
+                    ui.displayMessage("Nice! I've marked this task as done:");
+                    ui.displayTask(taskList.get(index));
 
                 } else if (command.startsWith("unmark ")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
                     taskList.unmarkTask(index);
                     saveTasks(taskList);
-                    System.out.println("     OK, I've marked this task as not done yet:");
-                    System.out.printf("      %s\n", taskList.get(index));
+                    ui.displayMessage("OK, I've marked this task as not done yet:");
+                    ui.displayTask(taskList.get(index));
 
                 } else if (command.startsWith("todo ")) {
                     if (command.split(" +").length < 2) {
@@ -101,8 +99,8 @@ public class Bibot {
                         ToDo todo = new ToDo(description);
                         taskList.add(todo);
                         saveTasks(taskList);
-                        System.out.println("     Got it. I've added this task:");
-                        System.out.printf("      %s\n", todo);
+                        ui.displayMessage("Got it. I've added this task:");
+                        ui.displayTask(todo);
                         taskList.printLength();
                     }
 
@@ -116,8 +114,8 @@ public class Bibot {
                         Deadline deadline = new Deadline(description, date);
                         taskList.add(deadline);
                         saveTasks(taskList);
-                        System.out.println("     Got it. I've added this task:");
-                        System.out.printf("      %s\n", deadline);
+                        ui.displayMessage("Got it. I've added this task:");
+                        ui.displayTask(deadline);
                         taskList.printLength();
                     }
 
@@ -133,8 +131,8 @@ public class Bibot {
                         Event event = new Event(description, startDate, endDate);
                         taskList.add(event);
                         saveTasks(taskList);
-                        System.out.println("     Got it. I've added this task:");
-                        System.out.printf("      %s\n", event);
+                        ui.displayMessage("Got it. I've added this task:");
+                        ui.displayTask(event);
                         taskList.printLength();
                     }
 
@@ -146,8 +144,8 @@ public class Bibot {
                         int index = Integer.parseInt(command.split(" +")[1]) - 1;
                         Task deletedTask = taskList.deleteTask(index);
                         saveTasks(taskList);
-                        System.out.println("     Noted. I've removed this task:");
-                        System.out.printf("     %s\n", deletedTask);
+                        ui.displayMessage("Noted. I've removed this task:");
+                        ui.displayTask(deletedTask);
                         taskList.printLength();
                     }
 
@@ -156,11 +154,11 @@ public class Bibot {
 
                 }
             } catch (BibotException e) {
-                System.out.printf("     %s\n", e.getMessage());
+                ui.displayMessage(e.getMessage());
 
             }
 
-            System.out.println("    _______________________________________\n");
+            ui.displayBottomLine();
         }
 
     }
