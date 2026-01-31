@@ -11,7 +11,8 @@ public class Bibot {
             try {
                 String input = ui.readInput();
                 ui.displayTopLine();
-                parser.parse(input, ui, storage, taskList);
+                Command command = parser.parse(input);
+                command.execute(taskList, ui, storage);
             } catch (BibotException e) {
                 ui.displayMessage(e.getMessage());
             }
