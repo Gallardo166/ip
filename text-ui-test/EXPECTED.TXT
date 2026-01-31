@@ -35,7 +35,7 @@
 
     _______________________________________
      Got it. I've added this task:
-      [D][ ] Grocery shopping (by: Friday)
+      [D][ ] Grocery shopping (by: Feb 12 2025 14:00)
      Now you have 2 tasks in the list.
     _______________________________________
 
@@ -53,7 +53,7 @@
     _______________________________________
      Here are the tasks in your list:
       1. [T][ ] Read book
-      2. [D][ ] Grocery shopping (by: Friday)
+      2. [D][ ] Grocery shopping (by: Feb 12 2025 14:00)
       3. [E][X] Concert (from: Saturday 12pm to: 6pm)
     _______________________________________
 
