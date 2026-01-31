@@ -13,7 +13,7 @@ public class Parser {
 
         } else if (input.equals("list")) {
             ui.displayMessage("Here are the tasks in your list:");
-            taskList.display();
+            ui.displayTaskList(taskList);
 
         } else if (input.startsWith("mark ")) {
             // Solution below adapted from
@@ -41,7 +41,7 @@ public class Parser {
                 storage.saveTasks(taskList);
                 ui.displayMessage("Got it. I've added this task:");
                 ui.displayTask(todo);
-                taskList.printLength();
+                ui.displayTaskCount(taskList);
             }
 
         } else if (input.startsWith("deadline ")) {
@@ -56,7 +56,7 @@ public class Parser {
                 storage.saveTasks(taskList);
                 ui.displayMessage("Got it. I've added this task:");
                 ui.displayTask(deadline);
-                taskList.printLength();
+                ui.displayTaskCount(taskList); 
             }
 
         } else if (input.startsWith("event ")) {
@@ -73,7 +73,7 @@ public class Parser {
                 storage.saveTasks(taskList);
                 ui.displayMessage("Got it. I've added this task:");
                 ui.displayTask(event);
-                taskList.printLength();
+                ui.displayTaskCount(taskList);
             }
 
         } else if (input.startsWith("delete ")) {
@@ -86,7 +86,7 @@ public class Parser {
                 storage.saveTasks(taskList);
                 ui.displayMessage("Noted. I've removed this task:");
                 ui.displayTask(deletedTask);
-                taskList.printLength();
+                ui.displayTaskCount(taskList);
             }
 
         } else {

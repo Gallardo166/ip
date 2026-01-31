@@ -5,14 +5,11 @@ public class Bibot {
         Ui ui = new Ui();
         Parser parser = new Parser();
 
-        ui.displayTopLine();
-        ui.displayMessage("Hello! I'm Bibot!");
-        ui.displayMessage("What can I do for you?");
-        ui.displayBottomLine();
+        ui.displayGreeting();  
 
         while (!parser.isFinished()) {
             try {
-                String input = ui.readCommand();
+                String input = ui.readInput();
                 ui.displayTopLine();
                 parser.parse(input, ui, storage, taskList);
             } catch (BibotException e) {

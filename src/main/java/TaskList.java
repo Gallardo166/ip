@@ -43,17 +43,8 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
-    public void display() {
-        for (int i = 0; i <= latestId; i++) {
-            System.out.printf("      %d. %s\n", i + 1, tasks.get(i));
-        }
-    }
-
-    public void printLength() {
-        String taskNum = latestId == 0
-                         ? "1 task"
-                         : String.format("%d tasks", latestId + 1);
-        System.out.printf("     Now you have %s in the list.\n", taskNum);
+    public int getLength() {
+        return latestId + 1;
     }
 
     public Iterator<Task> iterator() {
