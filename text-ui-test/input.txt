@@ -4,7 +4,7 @@ list
 mark 1
 list
 unmark 1
-deadline Grocery shopping /by Friday
+deadline Grocery shopping /by 12/02/2025 1400
 event Concert /from Saturday 12pm /to 6pm
 mark 3
 list

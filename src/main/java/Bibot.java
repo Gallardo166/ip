@@ -25,7 +25,7 @@ public class Bibot {
             }
             s.close();
             return taskList;
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | BibotException e) {
             return taskList;
         }
     }
