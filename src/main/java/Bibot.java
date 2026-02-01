@@ -1,12 +1,18 @@
 public class Bibot {
-    public static void main(String[] args) {
-        Storage storage = new Storage("./data/bibot.txt");
-        TaskList taskList = storage.loadTasks();
-        Ui ui = new Ui();
-        Parser parser = new Parser();
+    private Storage storage;
+    private TaskList taskList;
+    private Parser parser;
+    private Ui ui;
 
-        ui.displayGreeting();  
+    public Bibot(String filePath) {
+        this.storage = new Storage(filePath);
+        this.taskList = storage.loadTasks();
+        this.parser = new Parser();
+        this.ui = new Ui();
+    }
 
+    public void run() {
+        ui.displayGreeting();
         while (!parser.isFinished()) {
             try {
                 String input = ui.readInput();
@@ -16,9 +22,11 @@ public class Bibot {
             } catch (BibotException e) {
                 ui.displayMessage(e.getMessage());
             }
-
             ui.displayBottomLine();
         }
+    }
 
+    public static void main(String[] args) {
+        new Bibot("./data/tasks.txt").run();
     }
 }
