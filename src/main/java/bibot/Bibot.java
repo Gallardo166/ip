@@ -1,3 +1,8 @@
+package bibot;
+
+import bibot.command.Command;
+import bibot.task.TaskList;
+
 public class Bibot {
     private Storage storage;
     private TaskList taskList;

@@ -1,3 +1,0 @@
-T | not completed | Read book
-D | not completed | Grocery shopping | 12/02/2025 1400
-E | completed | Concert | Saturday 12pm | 6pm

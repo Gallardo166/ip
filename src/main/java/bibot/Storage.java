@@ -1,3 +1,11 @@
+package bibot;
+
+import bibot.task.Deadline;
+import bibot.task.Event;
+import bibot.task.Task;
+import bibot.task.TaskList;
+import bibot.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,9 +14,13 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private String root;
+    private String filePath; 
     
     public Storage(String filePath) {
+        String[] directories = filePath.split("/");
+        this.root =  directories[1];
+        System.out.println(root);
         this.filePath = filePath;
     }
 
@@ -41,12 +53,12 @@ public class Storage {
             //@@author Gallardo166-reused
             //Reused from https://stackoverflow.com/questions/28947250/create-a-directory-if-it-does-not-exist-and-then-create-the-files-in-that-direct
             // with minor modifications
-            File directory = new File("./data");
+            File directory = new File("./" + root);
             if (!directory.exists()) {
                 directory.mkdir();
             }
             //@@author
-            FileWriter fw = new FileWriter("./data/bibot.txt");
+            FileWriter fw = new FileWriter(filePath);
             for (Task task : taskList) {
                fw.write(task.fileString() + "\n");
             }
