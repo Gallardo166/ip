@@ -1,3 +1,12 @@
+package bibot.command;
+
+import bibot.task.Task;
+import bibot.task.TaskList;
+import bibot.Ui;
+import bibot.Storage;
+
+import bibot.BibotException;
+
 public class DeleteCommand extends Command {
     private int index;
 

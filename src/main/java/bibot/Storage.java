@@ -1,3 +1,11 @@
+package bibot;
+
+import bibot.task.Deadline;
+import bibot.task.Event;
+import bibot.task.Task;
+import bibot.task.TaskList;
+import bibot.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

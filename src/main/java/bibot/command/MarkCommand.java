@@ -1,3 +1,11 @@
+package bibot.command;
+
+import bibot.Ui;
+import bibot.task.TaskList;
+import bibot.Storage;
+
+import bibot.BibotException;
+
 public class MarkCommand extends Command {
     private int index;
 

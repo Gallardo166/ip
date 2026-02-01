@@ -1,6 +1,9 @@
+package bibot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bibot.BibotException;
 
 public class Deadline extends Task {
     private LocalDateTime date;

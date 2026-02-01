@@ -1,3 +1,16 @@
+package bibot;
+
+import bibot.command.AddCommand;
+import bibot.command.Command;
+import bibot.command.DeleteCommand;
+import bibot.command.ExitCommand;
+import bibot.command.ListCommand;
+import bibot.command.MarkCommand;
+import bibot.command.UnmarkCommand;
+import bibot.task.Deadline;
+import bibot.task.Event;
+import bibot.task.ToDo;
+
 public class Parser {
     private boolean isFinished = false;
 
