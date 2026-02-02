@@ -20,15 +20,18 @@ public class Parser {
 
     public Command parse(String input) throws BibotException {
         String[] splitInput = input.split(" ");
-        String command = splitInput[0];
+        String keyword = splitInput[0];
         int numArgs = splitInput.length;
+        Command command;
 
-        switch (command) {
+        switch (keyword) {
         case "bye":
             this.isFinished = true;
-            return new ExitCommand();
+            command = new ExitCommand();
+            break;
         case "list":
-            return new ListCommand();
+            command = new ListCommand();
+            break;
         case "mark":
             if (!input.matches("^mark [0-9]+$")) {
                 throw new BibotException("Please use this format:\n     mark [index]");
@@ -36,23 +39,26 @@ public class Parser {
                 // Solution below adapted from
                 // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                return new MarkCommand(index);
+                command = new MarkCommand(index);
             }
+            break;
         case "unmark":
             if (!input.matches("^unmark [0-9]+$")) {
                 throw new BibotException("Please use this format:\n     unmark [index]");
             } else {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                return new UnmarkCommand(index);
+                command = new UnmarkCommand(index);
             }
+            break;
         case "todo":
             if (numArgs < 2) {
                 throw new BibotException("Please write the task description!");
             } else { 
                 String description = splitInput[1];
                 ToDo todo = new ToDo(description);
-                return new AddCommand(todo);
+                command = new AddCommand(todo);
             }
+            break;
         case "deadline":
             if (numArgs < 4 || !input.matches(".+ /by .+")) {
                 throw new BibotException("Please use this format:\n     deadline [description] /by [datetime]");
@@ -60,8 +66,9 @@ public class Parser {
                 String description = input.split(" /by ")[0].replaceFirst("deadline ", "");
                 String date = input.split(" /by ")[1];
                 Deadline deadline = new Deadline(description, date);
-                return new AddCommand(deadline);
+                command = new AddCommand(deadline);
             }
+            break;
         case "event":
             if (numArgs < 6 || !input.matches(".+ /from .+ /to .+")) {
                 throw new BibotException(
@@ -71,17 +78,21 @@ public class Parser {
                 String startDate = input.split(" /from ")[1].split(" /to ")[0];
                 String endDate = input.split(" /from ")[1].split(" /to ")[1];
                 Event event = new Event(description, startDate, endDate);
-                return new AddCommand(event);
+                command = new AddCommand(event);
             }
+            break;
         case "delete":
             if (!input.matches("^delete [0-9]+$")) {
                 throw new BibotException("Please use this format:\n     delete [index]"); 
             } else {
                 int index = Integer.parseInt(input.split(" +")[1]) - 1;
-                return new DeleteCommand(index);
+                command = new DeleteCommand(index);
             }
+            break;
         default:
             throw new BibotException("I'm not familiar with that command...");
         }
+
+        return command;
     }
 }
