@@ -1,9 +1,10 @@
 package bibot.task;
 
-import bibot.BibotException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
+
+import bibot.BibotException;
 
 /**
  * Represents a list of <code>Task</code>s.
@@ -78,6 +79,22 @@ public class TaskList implements Iterable<Task> {
         } else {
             return tasks.get(index);
         }
+    }
+
+    /**
+     * Returns a filtered list containing all tasks where <code>predicate.test(task)</code> returns true.
+     * 
+     * @param predicate Functional interface that tests tasks.
+     * @return A new filtered task list.
+     */
+    public TaskList filter(Predicate<Task> predicate) {
+        TaskList newTaskList = new TaskList();
+        for (Task task: tasks) {
+            if (predicate.test(task)) {
+                newTaskList.add(task);
+            }
+        }
+        return newTaskList;
     }
 
     /**

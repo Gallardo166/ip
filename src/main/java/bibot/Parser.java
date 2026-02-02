@@ -4,6 +4,7 @@ import bibot.command.AddCommand;
 import bibot.command.Command;
 import bibot.command.DeleteCommand;
 import bibot.command.ExitCommand;
+import bibot.command.FindCommand;
 import bibot.command.ListCommand;
 import bibot.command.MarkCommand;
 import bibot.command.UnmarkCommand;
@@ -65,7 +66,7 @@ public class Parser {
             if (numArgs < 2) {
                 throw new BibotException("Please write the task description!");
             } else { 
-                String description = splitInput[1];
+                String description = input.replaceFirst("todo ", "");
                 ToDo todo = new ToDo(description);
                 command = new AddCommand(todo);
             }
@@ -100,6 +101,14 @@ public class Parser {
             } else {
                 int index = Integer.parseInt(input.split(" +")[1]) - 1;
                 command = new DeleteCommand(index);
+            }
+            break;
+        case "find":
+            if (numArgs < 2) {
+                throw new BibotException("Please use this format:\n     find [keyword]");
+            } else {
+                String searchKeyword = input.replaceFirst("find ", "");
+                command = new FindCommand(searchKeyword);
             }
             break;
         default:

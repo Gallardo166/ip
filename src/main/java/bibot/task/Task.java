@@ -38,6 +38,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean hasSubstring(String substring) {
+        return this.description.contains(substring);
+    }
+
     @Override
     public String toString() {
         if (this.isDone) {
