@@ -50,7 +50,7 @@ public class Parser {
             if (numArgs < 2) {
                 throw new BibotException("Please write the task description!");
             } else { 
-                String description = splitInput[1];
+                String description = input.replaceFirst("todo ", "");
                 ToDo todo = new ToDo(description);
                 return new AddCommand(todo);
             }
