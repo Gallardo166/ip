@@ -28,8 +28,7 @@ public class Ui {
     public void displayTaskList(TaskList taskList) {
         int taskNumber = 1;
         for (Task task: taskList) {
-            System.out.println(taskIndentation + taskNumber
-                        + ". " + task);
+            System.out.println(taskIndentation + taskNumber + ". " + task);
             taskNumber++;
         }
     }
@@ -39,8 +38,8 @@ public class Ui {
         String taskString = numTasks == 1
                             ? "task"
                             : "tasks";
-        System.out.println(messageIndentation + "Now you have "
-                + numTasks + " " + taskString + " in the list.");
+        System.out.println(messageIndentation + "Now you have " + numTasks + " "
+                + taskString + " in the list.");
     }
 
     public void displayTopLine() {

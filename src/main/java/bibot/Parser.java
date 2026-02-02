@@ -61,9 +61,11 @@ public class Parser {
             break;
         case "deadline":
             if (numArgs < 4 || !input.matches(".+ /by .+")) {
-                throw new BibotException("Please use this format:\n     deadline [description] /by [datetime]");
+                throw new BibotException(
+                        "Please use this format:\n     deadline [description] /by [datetime]");
             } else {
-                String description = input.split(" /by ")[0].replaceFirst("deadline ", "");
+                String description = input.split(" /by ")[0]
+                        .replaceFirst("deadline ", "");
                 String date = input.split(" /by ")[1];
                 Deadline deadline = new Deadline(description, date);
                 command = new AddCommand(deadline);
