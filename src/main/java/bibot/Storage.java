@@ -13,10 +13,19 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
+/**
+ * Represents component that handles loading and saving tasks in a file.
+ */
 public class Storage {
     private String root;
     private String filePath; 
     
+    /**
+     * Constructs a new <code>Storage</code> representing the component
+     * that handles loading and saving tasks in a file.
+     * 
+     * @param filePath Path to storage file.
+     */
     public Storage(String filePath) {
         String[] directories = filePath.split("/");
         this.root =  directories[1];
@@ -24,6 +33,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads tasks from the storage file and returns a <code>TaskList</code>.
+     * If storage file is not found, returns an empty <code>TaskList</code>.
+     */
     public TaskList loadTasks() {
         TaskList taskList = new TaskList();
         try {
@@ -48,6 +61,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes tasks in the specified <code>TaskList</code>
+     * to the storage file.
+     */
     public void saveTasks(TaskList taskList) {
         try {
             //@@author Gallardo166-reused

@@ -1,17 +1,27 @@
 package bibot.task;
+
 /**
- * 
+ * Represents a task with a start time and end time.
  */
 public class Event extends Task {
     private String startTime;
     private String endTime;
 
+    /**
+     * Constructs a new <code>Event</code> representing a task
+     * with a start time and end time.
+     * The <code>Event</code> is initially not completed.
+     */
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     * Constructs a new <code>Event</code> representing a task
+     * with a start time and end time.
+     */
     public Event(String description, String startTime, String endTime, boolean isDone) {
         super(description, isDone);
         this.startTime = startTime;

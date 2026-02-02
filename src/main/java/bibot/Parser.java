@@ -11,13 +11,24 @@ import bibot.task.Deadline;
 import bibot.task.Event;
 import bibot.task.ToDo;
 
+/**
+ * Represents component that handles different user inputs.
+ */
 public class Parser {
     private boolean isFinished = false;
 
+    /**
+     * Returns true if <code>Parser</code> has encountered the exit command.
+     */
     public boolean isFinished() {
         return this.isFinished;
     }
 
+    /**
+     * Returns an executable <code>Command</code> based on the user input.
+     * 
+     * @throws BibotException If input format is invalid.
+     */
     public Command parse(String input) throws BibotException {
         String[] splitInput = input.split(" ");
         String command = splitInput[0];

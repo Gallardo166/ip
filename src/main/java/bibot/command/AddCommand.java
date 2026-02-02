@@ -4,9 +4,19 @@ import bibot.task.TaskList;
 import bibot.Ui;
 import bibot.Storage;
 
+/**
+ * Represents the executable command that adds a task
+ * into the task list.
+ */
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Constructs a new <code>AddCommand</code> representing the
+     * executable command for adding a task into the task list.
+     * 
+     * @param task Task to be added into task list.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }

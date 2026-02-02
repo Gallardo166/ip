@@ -6,9 +6,19 @@ import bibot.Storage;
 
 import bibot.BibotException;
 
+/**
+ * Represents the executable command that marks a task
+ * as completed.
+ */
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a new <code>MarkCommand</code> representing the
+     * executable command that marks a task as completed.
+     * 
+     * @param index Position of task to mark as completed.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
