@@ -31,7 +31,7 @@ public class Task {
     }
 
     public String fileString() {
-        String completionString = this.isDone ? "completed" : "not completed";
+        String completionString = (this.isDone) ? "completed" : "not completed";
         return String.format("%s | %s", completionString, this.description);
     }
 }

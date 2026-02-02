@@ -35,9 +35,7 @@ public class Ui {
     
     public void displayTaskCount(TaskList taskList) {
         int numTasks = taskList.getLength();
-        String taskString = numTasks == 1
-                            ? "task"
-                            : "tasks";
+        String taskString = (numTasks == 1) ? "task" : "tasks";
         System.out.println(messageIndentation + "Now you have " + numTasks + " "
                 + taskString + " in the list.");
     }
