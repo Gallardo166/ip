@@ -1,6 +1,7 @@
 package bibot.task;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 import bibot.BibotException;
 
@@ -41,6 +42,16 @@ public class TaskList implements Iterable<Task> {
         } else {
             return tasks.get(index);
         }
+    }
+
+    public TaskList filter(Predicate<Task> predicate) {
+        TaskList newTaskList = new TaskList();
+        for (Task task: tasks) {
+            if (predicate.test(task)) {
+                newTaskList.add(task);
+            }
+        }
+        return newTaskList;
     }
 
     public int getLength() {

@@ -4,6 +4,7 @@ import bibot.command.AddCommand;
 import bibot.command.Command;
 import bibot.command.DeleteCommand;
 import bibot.command.ExitCommand;
+import bibot.command.FindCommand;
 import bibot.command.ListCommand;
 import bibot.command.MarkCommand;
 import bibot.command.UnmarkCommand;
@@ -79,6 +80,13 @@ public class Parser {
             } else {
                 int index = Integer.parseInt(input.split(" +")[1]) - 1;
                 return new DeleteCommand(index);
+            }
+        case "find":
+            if (numArgs < 2) {
+                throw new BibotException("Please use this format:\n     find [keyword]");
+            } else {
+                String keyword = input.replaceFirst("find ", "");
+                return new FindCommand(keyword);
             }
         default:
             throw new BibotException("I'm not familiar with that command...");
