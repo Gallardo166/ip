@@ -1,8 +1,9 @@
 package bibot.task;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import bibot.BibotException;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> tasks = new ArrayList<>();

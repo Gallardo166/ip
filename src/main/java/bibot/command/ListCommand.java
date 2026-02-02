@@ -1,8 +1,8 @@
 package bibot.command;
 
+import bibot.Storage;
 import bibot.Ui;
 import bibot.task.TaskList;
-import bibot.Storage;
 
 public class ListCommand extends Command {
     @Override

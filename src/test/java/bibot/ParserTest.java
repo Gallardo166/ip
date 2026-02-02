@@ -1,20 +1,20 @@
 package bibot;
 
-import bibot.task.Deadline;
-import bibot.command.AddCommand;
-import bibot.command.MarkCommand;
-import bibot.command.DeleteCommand;
-import bibot.command.UnmarkCommand;
-import bibot.command.ListCommand;
-
-import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import bibot.command.AddCommand;
+import bibot.command.DeleteCommand;
+import bibot.command.ListCommand;
+import bibot.command.MarkCommand;
+import bibot.command.UnmarkCommand;
+import bibot.task.Deadline;
+
 import java.lang.reflect.Field;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test

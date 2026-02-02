@@ -1,8 +1,9 @@
 package bibot;
-import java.util.Scanner;
 
 import bibot.task.Task;
 import bibot.task.TaskList;
+
+import java.util.Scanner;
 
 public class Ui {
     // Solution below inspired by https://www.w3schools.com/java/java_user_input.asp
