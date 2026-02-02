@@ -16,7 +16,7 @@ public class Deadline extends Task {
         super(description);
         try {
             this.date = LocalDateTime.parse(date, inputFormat);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException exception) {
             throw new BibotException(
                 "Invalid datetime format: use dd/mm/yyyy hhmm (e.g. 12/02/2025 1400)");
         }
@@ -26,7 +26,7 @@ public class Deadline extends Task {
         super(description, isDone);
         try {
             this.date = LocalDateTime.parse(date, inputFormat);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException exception) {
             throw new BibotException(
                 "Invalid datetime format: use dd/mm/yyyy hhmm (e.g. 12/02/2025 1400)");
         }

@@ -24,10 +24,11 @@ public class Bibot {
                 ui.displayTopLine();
                 Command command = parser.parse(input);
                 command.execute(taskList, ui, storage);
-            } catch (BibotException e) {
-                ui.displayMessage(e.getMessage());
+            } catch (BibotException exception) {
+                ui.displayMessage(exception.getMessage());
+            } finally {
+                ui.displayBottomLine();
             }
-            ui.displayBottomLine();
         }
     }
 

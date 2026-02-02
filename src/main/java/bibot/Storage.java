@@ -43,7 +43,9 @@ public class Storage {
             }
             s.close();
             return taskList;
-        } catch (FileNotFoundException | BibotException e) {
+        } catch (FileNotFoundException exception) {
+            return taskList;
+        } catch (BibotException exception) {
             return taskList;
         }
     }
@@ -63,8 +65,8 @@ public class Storage {
                fw.write(task.fileString() + "\n");
             }
             fw.close();
-        } catch (IOException e) {  
-            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (IOException exception) {  
+            System.out.println("Something went wrong: " + exception.getMessage());
         }
     }
 }
