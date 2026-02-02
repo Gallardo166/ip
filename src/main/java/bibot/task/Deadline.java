@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 
 import bibot.BibotException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     private LocalDateTime date;
     private static final DateTimeFormatter inputFormat =
@@ -12,6 +15,13 @@ public class Deadline extends Task {
     private static final DateTimeFormatter displayFormat =
             DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Constructs a new <code>Deadline</code> representing a task
+     * with a deadline.
+     * The <code>Deadline</code> is initially not completed.
+     * 
+     * @throws BibotException If the given date is not in valid format.
+     */
     public Deadline(String description, String date) throws BibotException {
         super(description);
         try {
@@ -22,6 +32,12 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Constructs a new <code>Deadline</code> representing a task
+     * with a deadline.
+     * 
+     * @throws BibotException If the given date is not in valid format.
+     */
     public Deadline(String description, String date, boolean isDone) throws BibotException {
         super(description, isDone);
         try {
