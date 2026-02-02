@@ -7,9 +7,19 @@ import bibot.Storage;
 
 import bibot.BibotException;
 
+/**
+ * Represents the executable command that deletes a task
+ * from the task list.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a new <code>DeleteCommand</code> representing the
+     * executable command that deletes a task from the task list.
+     * 
+     * @param index Position of task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
