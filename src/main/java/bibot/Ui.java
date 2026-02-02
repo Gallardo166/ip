@@ -18,7 +18,7 @@ public class Ui {
     }
 
     public void displayMessage(String text) {
-       System.out.println(messageIndentation + text); 
+        System.out.println(messageIndentation + text);
     }
     
     public void displayTask(Task task) {

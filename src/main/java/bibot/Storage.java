@@ -62,7 +62,7 @@ public class Storage {
             //@@author
             FileWriter fw = new FileWriter(filePath);
             for (Task task : taskList) {
-               fw.write(task.fileString() + "\n");
+                fw.write(task.fileString() + "\n");
             }
             fw.close();
         } catch (IOException exception) {  
