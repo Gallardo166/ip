@@ -6,12 +6,12 @@ import bibot.task.TaskList;
 
 public class Ui {
     // Solution below inspired by https://www.w3schools.com/java/java_user_input.asp
-    private static Scanner commandScanner = new Scanner(System.in);
-
     private String dividerIndentation = " ".repeat(4);
     private String messageIndentation = " ".repeat(5);
     private String taskIndentation = " ".repeat(6);
     private String divider = "_".repeat(39);
+
+    private static Scanner commandScanner = new Scanner(System.in);
 
     public String readInput() {
         return commandScanner.nextLine();

@@ -7,6 +7,7 @@ import bibot.BibotException;
 
 public class Deadline extends Task {
     private LocalDateTime date;
+
     private static final DateTimeFormatter inputFormat
             = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter displayFormat

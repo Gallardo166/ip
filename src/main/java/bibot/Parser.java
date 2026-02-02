@@ -94,7 +94,6 @@ public class Parser {
         default:
             throw new BibotException("I'm not familiar with that command...");
         }
-
         return command;
     }
 }
