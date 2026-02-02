@@ -8,8 +8,7 @@ public class Event extends Task {
     private String endTime;
 
     /**
-     * Constructs a new <code>Event</code> representing a task
-     * with a start time and end time.
+     * Constructs a new <code>Event</code> representing a task with a start time and end time.
      * The <code>Event</code> is initially not completed.
      */
     public Event(String description, String startTime, String endTime) {
@@ -19,8 +18,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new <code>Event</code> representing a task
-     * with a start time and end time.
+     * Constructs a new <code>Event</code> representing a task with a start time and end time.
      */
     public Event(String description, String startTime, String endTime, boolean isDone) {
         super(description, isDone);
@@ -30,13 +28,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), startTime, endTime);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
     }
 
     @Override
     public String fileString() {
-        return "E | " + super.fileString() + " | " + this.startTime
-                + " | " + this.endTime;
+        return "E | " + super.fileString() + " | " + this.startTime + " | " + this.endTime;
     }
 }

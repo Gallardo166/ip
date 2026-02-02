@@ -1,17 +1,17 @@
 package bibot.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import bibot.BibotException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
-    public void test1() {
+    public void add_singleTask_noExceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
@@ -19,7 +19,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test2() {
+    public void markTask_validIndex_noExceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
@@ -27,7 +27,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test3() {
+    public void unmarkTask_validIndex_noExceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
@@ -35,7 +35,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test4() {
+    public void deleteTask_validIndex_noExceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
@@ -43,61 +43,43 @@ public class TaskListTest {
     }
 
     @Test
-    public void test5() {
+    public void markTask_invalidIndex_exceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
         BibotException thrown = assertThrows(BibotException.class,
                 () -> taskList.markTask(-1));
         assertEquals("There's no such task!", thrown.getMessage());
+
+        thrown = assertThrows(BibotException.class,
+                () -> taskList.markTask(1));
+        assertEquals("There's no such task!", thrown.getMessage());
     }
 
     @Test
-    public void test6() {
+    public void unmarkTask_invalidIndex_exceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
         BibotException thrown = assertThrows(BibotException.class,
                 () -> taskList.unmarkTask(-1));
         assertEquals("There's no such task!", thrown.getMessage());
+
+        thrown = assertThrows(BibotException.class,
+                () -> taskList.unmarkTask(1));
+        assertEquals("There's no such task!", thrown.getMessage());
     }
 
     @Test
-    public void test7() {
+    public void deleteTask_invalidIndex_exceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("test"));
 
         BibotException thrown = assertThrows(BibotException.class,
                 () -> taskList.deleteTask(-1));
         assertEquals("There's no such task!", thrown.getMessage());
-    }
 
-    @Test
-    public void test8() {
-        TaskList taskList = new TaskList();
-        taskList.add(new ToDo("test"));
-
-        BibotException thrown = assertThrows(BibotException.class,
-                () -> taskList.markTask(1));
-        assertEquals("There's no such task!", thrown.getMessage());
-    }
-
-    @Test
-    public void test9() {
-        TaskList taskList = new TaskList();
-        taskList.add(new ToDo("test"));
-
-        BibotException thrown = assertThrows(BibotException.class,
-                () -> taskList.unmarkTask(1));
-        assertEquals("There's no such task!", thrown.getMessage());
-    }
-
-    @Test
-    public void test10() {
-        TaskList taskList = new TaskList();
-        taskList.add(new ToDo("test"));
-
-        BibotException thrown = assertThrows(BibotException.class,
+        thrown = assertThrows(BibotException.class,
                 () -> taskList.deleteTask(1));
         assertEquals("There's no such task!", thrown.getMessage());
     }

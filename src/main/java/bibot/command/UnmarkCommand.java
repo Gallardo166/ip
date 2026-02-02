@@ -1,13 +1,12 @@
 package bibot.command;
-import bibot.Ui;
-import bibot.task.TaskList;
-import bibot.Storage;
 
 import bibot.BibotException;
+import bibot.Storage;
+import bibot.Ui;
+import bibot.task.TaskList;
 
 /**
- * Represents the executable command that marks a task
- * as not completed.
+ * Represents the executable command that marks a task as not completed.
  */
 public class UnmarkCommand extends Command {
     private int index;

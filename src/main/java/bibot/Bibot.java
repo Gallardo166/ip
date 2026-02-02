@@ -13,8 +13,8 @@ public class Bibot {
     private Ui ui;
 
     /**
-     * Constructs a new <code>Bibot</code> representing
-     * the chatbot application.
+     * Constructs a new <code>Bibot</code> representing the chatbot application.
+     * 
      * @param filePath Path to storage file.
      */
     public Bibot(String filePath) {
@@ -36,10 +36,11 @@ public class Bibot {
                 ui.displayTopLine();
                 Command command = parser.parse(input);
                 command.execute(taskList, ui, storage);
-            } catch (BibotException e) {
-                ui.displayMessage(e.getMessage());
+            } catch (BibotException exception) {
+                ui.displayMessage(exception.getMessage());
+            } finally {
+                ui.displayBottomLine();
             }
-            ui.displayBottomLine();
         }
     }
 

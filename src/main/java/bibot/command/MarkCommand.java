@@ -1,14 +1,12 @@
 package bibot.command;
 
+import bibot.BibotException;
+import bibot.Storage;
 import bibot.Ui;
 import bibot.task.TaskList;
-import bibot.Storage;
-
-import bibot.BibotException;
 
 /**
- * Represents the executable command that marks a task
- * as completed.
+ * Represents the executable command that marks a task as completed.
  */
 public class MarkCommand extends Command {
     private int index;

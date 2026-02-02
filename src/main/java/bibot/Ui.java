@@ -1,8 +1,9 @@
 package bibot;
-import java.util.Scanner;
 
 import bibot.task.Task;
 import bibot.task.TaskList;
+
+import java.util.Scanner;
 
 /**
  * Represents component that handles output display to user.
@@ -30,27 +31,24 @@ public class Ui {
      * Prints the specified text with message-level indentation (5).
      */
     public void displayMessage(String text) {
-       System.out.println(messageIndentation + text); 
+        System.out.println(messageIndentation + text);
     }
     
     /**
-     * Prints the specified <code>Task</code> as a 
-     * <code>String</code> with task-level indentation (6).
+     * Prints the specified <code>Task</code> as a string with task-level indentation (6).
      */
     public void displayTask(Task task) {
         System.out.println(taskIndentation + task);
     }
 
     /**
-     * Prints numbered list of <code>Task</code>s as
-     * <code>String</code>s in the specified <code>TaskList</code>
-     * with task-level indentation (6).
+     * Prints numbered list of <code>Task</code>s as strings in the
+     * specified <code>TaskList</code> with task-level indentation (6).
      */
     public void displayTaskList(TaskList taskList) {
         int taskNumber = 1;
         for (Task task: taskList) {
-            System.out.println(taskIndentation + taskNumber
-                        + ". " + task);
+            System.out.println(taskIndentation + taskNumber + ". " + task);
             taskNumber++;
         }
     }
@@ -61,11 +59,9 @@ public class Ui {
      */
     public void displayTaskCount(TaskList taskList) {
         int numTasks = taskList.getLength();
-        String taskString = numTasks == 1
-                            ? "task"
-                            : "tasks";
-        System.out.println(messageIndentation + "Now you have "
-                + numTasks + " " + taskString + " in the list.");
+        String taskString = (numTasks == 1) ? "task" : "tasks";
+        System.out.println(messageIndentation + "Now you have " + numTasks + " "
+                + taskString + " in the list.");
     }
 
     /**

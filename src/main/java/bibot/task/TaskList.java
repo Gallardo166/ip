@@ -1,8 +1,9 @@
 package bibot.task;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import bibot.BibotException;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Represents a list of <code>Task</code>s.
@@ -19,8 +20,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Marks the <code>Task</code> in the specified index in the
-     * list as completed.
+     * Marks the <code>Task</code> in the specified index in the list as completed.
      * The index starts at 0 for the first task. 
      * 
      * @param index Position of task in the list.
@@ -35,8 +35,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Marks the <code>Task</code> in the specified index in the
-     * list as not completed.
+     * Marks the <code>Task</code> in the specified index in the list as not completed.
      * The index starts at 0 for the first task.
      * 
      * @param index Position of task in the list.
@@ -50,6 +49,15 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Delete the <code>Task</code> in the specified index in the list.
+     * Indices of subsequent tasks (those with indices greater than
+     * the specified index) are decremented by 1.
+     * 
+     * @param index Position of task in the list.
+     * @return Deleted task.
+     * @throws BibotException If there is no task in given index.
+     */
     public Task deleteTask(int index) throws BibotException {
         if (index < 0 || index >= tasks.size()) {
             throw new BibotException("There's no such task!");
@@ -59,13 +67,9 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Delete the <code>Task</code> in the specified index in the
-     * list.
-     * Indices of subsequent tasks (those with indices greater than
-     * the specified index) are decremented by 1.
+     * Returns the <code>Task</code> in the specified index in the list.
      * 
      * @param index Position of task in the list.
-     * @return Deleted task.
      * @throws BibotException If there is no task in given index.
      */
     public Task get(int index) throws BibotException {

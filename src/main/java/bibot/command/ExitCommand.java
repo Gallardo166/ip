@@ -1,12 +1,11 @@
 package bibot.command;
 
+import bibot.Storage;
 import bibot.Ui;
 import bibot.task.TaskList;
-import bibot.Storage;
 
 /**
- * Represents the executable command that ends the current
- * application session.
+ * Represents the executable command that ends the current application session.
  */
 public class ExitCommand extends Command {
     @Override
