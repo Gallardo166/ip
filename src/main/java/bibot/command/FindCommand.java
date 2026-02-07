@@ -20,9 +20,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         TaskList matchingTasks = taskList.filter((Task task) -> task.hasSubstring(keyword));
-        ui.displayMessage("Here are the matching tasks in your list:");
-        ui.displayTaskList(matchingTasks);
+        return "Here are the matching tasks in your list: \n" + ui.getTaskListString(matchingTasks);
     }
 }

@@ -9,8 +9,7 @@ import bibot.task.TaskList;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.end();
-        ui.displayMessage("Bye. Hope to see you again soon!");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 }

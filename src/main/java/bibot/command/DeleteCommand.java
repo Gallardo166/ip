@@ -23,11 +23,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
         Task deletedTask = taskList.deleteTask(index);
         storage.saveTasks(taskList);
-        ui.displayMessage("Noted. I've removed this task:");
-        ui.displayTask(deletedTask);
-        ui.displayTaskCount(taskList);
+        return "Noted. I've removed this task: \n" + ui.getTaskString(deletedTask) + "\n"
+                + ui.getTaskCountString(taskList);
     }
 }

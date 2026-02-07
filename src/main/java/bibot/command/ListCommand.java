@@ -9,8 +9,7 @@ import bibot.task.TaskList;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.displayMessage("Here are the tasks in your list:");
-        ui.displayTaskList(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return "Here are the tasks in your list: \n" + ui.getTaskListString(taskList);
     }    
 }
