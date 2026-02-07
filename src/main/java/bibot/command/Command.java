@@ -17,5 +17,5 @@ public abstract class Command {
      * @param storage Storage used for saving tasks into storage file.
      * @throws BibotException If command is invalid.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws BibotException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException;
 }

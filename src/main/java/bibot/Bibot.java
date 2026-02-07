@@ -23,32 +23,14 @@ public class Bibot {
         this.parser = new Parser();
         this.ui = new Ui();
     }
-    
-    /**
-     * Contains the main application logic.
-     * Reads and executes user commands.
-     */
-    public void run() {
-        ui.displayGreeting();
-        while (!parser.isFinished()) {
-            try {
-                String input = ui.readInput();
-                ui.displayTopLine();
-                Command command = parser.parse(input);
-                command.execute(taskList, ui, storage);
-            } catch (BibotException exception) {
-                ui.displayMessage(exception.getMessage());
-            } finally {
-                ui.displayBottomLine();
-            }
+
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parse(input);
+            return command.execute(taskList, ui, storage);
+        } catch (BibotException exception) {
+            return exception.getMessage();
         }
     }
 
-    /**
-     * Represents the entry point of the application.
-     * Uses <code>./data/tasks.txt</code> for task storage.
-     */
-    public static void main(String[] args) {
-        new Bibot("./data/tasks.txt").run();
-    }
 }

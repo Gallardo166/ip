@@ -22,10 +22,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
         taskList.markTask(index);
         storage.saveTasks(taskList);
-        ui.displayMessage("Nice! I've marked this task as done:");
-        ui.displayTask(taskList.get(index));
+        return  "Nice! I've marked this task as done: \n" + ui.getTaskString(taskList.get(index));
     }
 }
