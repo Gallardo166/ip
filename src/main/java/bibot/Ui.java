@@ -4,21 +4,21 @@ import bibot.task.Task;
 import bibot.task.TaskList;
 
 /**
- * Represents component that handles output display to user.
+ * Represents component that formats replies to user.
  */
 public class Ui {
     private String taskIndentation = " ".repeat(1);
 
     /**
-     * Prints the specified <code>Task</code> as a string with task-level indentation (6).
+     * Returns the specified <code>Task</code> as a string with task-level indentation (1).
      */
     public String getTaskString(Task task) {
         return taskIndentation + task;
     }
 
     /**
-     * Prints numbered list of <code>Task</code>s as strings in the
-     * specified <code>TaskList</code> with task-level indentation (6).
+     * Returns a numbered list of <code>Task</code>s as strings in the
+     * specified <code>TaskList</code> with task-level indentation (1).
      */
     public String getTaskListString(TaskList taskList) {
         String taskListString = "";
@@ -31,7 +31,7 @@ public class Ui {
     }
     
     /**
-     * Prints a message containing the number of <code>Task</code>s
+     * Returns a message containing the number of <code>Task</code>s
      * in the specified <code>TaskList</code>.
      */
     public String getTaskCountString(TaskList taskList) {

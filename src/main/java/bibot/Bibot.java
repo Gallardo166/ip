@@ -24,6 +24,9 @@ public class Bibot {
         this.ui = new Ui();
     }
 
+    /**
+     * Returns a string reply to the user input.
+     */
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);

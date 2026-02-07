@@ -10,10 +10,10 @@ import bibot.task.TaskList;
  */
 public abstract class Command {
     /**
-     * Modifies the task list and displays output to user based on the type of command.
+     * Modifies the task list and returns a reply string based on the type of command.
      * 
      * @param taskList Task list to be modified.
-     * @param ui Ui used for output display.
+     * @param ui Ui used for forming replies.
      * @param storage Storage used for saving tasks into storage file.
      * @throws BibotException If command is invalid.
      */
