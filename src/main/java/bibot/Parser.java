@@ -114,6 +114,9 @@ public class Parser {
         default:
             throw new BibotException("I'm not familiar with that command...");
         }
+
+        assert command != null : "null command";
+
         return command;
     }
 }

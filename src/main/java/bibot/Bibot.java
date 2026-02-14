@@ -18,6 +18,8 @@ public class Bibot {
      * @param filePath Path to storage file.
      */
     public Bibot(String filePath) {
+        assert !filePath.equals("") : "filePath should not be empty";
+
         this.storage = new Storage(filePath);
         this.taskList = storage.loadTasks();
         this.parser = new Parser();
