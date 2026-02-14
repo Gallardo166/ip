@@ -51,7 +51,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Delete the <code>Task</code> in the specified index in the list.
+     * Deletes the <code>Task</code> in the specified index in the list.
      * Indices of subsequent tasks (those with indices greater than
      * the specified index) are decremented by 1.
      * 
