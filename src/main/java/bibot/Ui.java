@@ -7,13 +7,15 @@ import bibot.task.TaskList;
  * Represents component that formats replies to user.
  */
 public class Ui {
-    private String taskIndentation = " ".repeat(1);
+    private static final String TASK_STRING_FORMAT = " %s";
+    private static final String TASK_LIST_STRING_FORMAT = " %d. %s\n";
+    private static final String TASK_COUNT_STRING_FORMAT = "Now you have %d %s in the list.";
 
     /**
      * Returns the specified <code>Task</code> as a string with task-level indentation (1).
      */
     public String getTaskString(Task task) {
-        return taskIndentation + task;
+        return String.format(TASK_STRING_FORMAT, task);
     }
 
     /**
@@ -24,7 +26,7 @@ public class Ui {
         String taskListString = "";
         int taskNumber = 1;
         for (Task task: taskList) {
-            taskListString += taskIndentation + taskNumber + ". " + task + "\n";
+            taskListString += String.format(TASK_LIST_STRING_FORMAT, taskNumber, task);
             taskNumber++;
         }
         return taskListString;
@@ -37,6 +39,6 @@ public class Ui {
     public String getTaskCountString(TaskList taskList) {
         int numTasks = taskList.getLength();
         String taskString = (numTasks == 1) ? "task" : "tasks";
-        return "Now you have " + numTasks + " " + taskString + " in the list.";
+        return String.format(TASK_COUNT_STRING_FORMAT, numTasks, taskString);
     }
 }
