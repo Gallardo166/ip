@@ -28,7 +28,6 @@ public class Storage {
     public Storage(String filePath) {
         String[] directories = filePath.split("/");
         this.root =  directories[1];
-        System.out.println(root);
         this.filePath = filePath;
     }
 
@@ -42,22 +41,11 @@ public class Storage {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                String[] splitLine = s.nextLine().split(" \\| ");
-                String taskType = splitLine[0];
-                boolean isDone = splitLine[1].equals("completed");
-                if (taskType.equals("T")) {
-                    taskList.add(new ToDo(splitLine[2], isDone));
-                } else if (taskType.equals("D")) {
-                    taskList.add(new Deadline(splitLine[2], splitLine[3], isDone));
-                } else {
-                    taskList.add(new Event(splitLine[2], splitLine[3], splitLine[4], isDone));
-                }
+                taskList.add(createTask(s.nextLine()));
             }
             s.close();
             return taskList;
-        } catch (FileNotFoundException exception) {
-            return taskList;
-        } catch (BibotException exception) {
+        } catch (FileNotFoundException | BibotException exception) {
             return taskList;
         }
     }
@@ -66,7 +54,7 @@ public class Storage {
      * Writes tasks in the specified <code>TaskList</code>
      * to the storage file.
      */
-    public void saveTasks(TaskList taskList) {
+    public void saveTasks(TaskList taskList) throws BibotException {
         try {
             //@@author Gallardo166-reused
             //Reused from https://stackoverflow.com/questions/28947250/create-a-directory-if-it-does-not-exist-and-then-create-the-files-in-that-direct
@@ -82,7 +70,23 @@ public class Storage {
             }
             fw.close();
         } catch (IOException exception) {  
-            System.out.println("Something went wrong: " + exception.getMessage());
+            throw new BibotException("Something went wrong: " + exception.getMessage());
         }
     }
+
+    private Task createTask(String line) throws BibotException {
+        String[] splitLine = line.split(" \\| ");
+        String taskType = splitLine[0];
+        boolean isDone = splitLine[1].equals("completed");
+
+        if (taskType.equals("T")) {
+            return new ToDo(splitLine[2], isDone);
+        } else if (taskType.equals("D")) {
+            return new Deadline(splitLine[2], splitLine[3], isDone);
+        } else if (taskType.equals("E")) {
+            return new Event(splitLine[2], splitLine[3], splitLine[4], isDone);
+        } else {
+            throw new BibotException("Incorrect format in file encountered.");
+        }
+    } 
 }
