@@ -1,5 +1,6 @@
 package bibot.command;
 
+import bibot.BibotException;
 import bibot.Storage;
 import bibot.Ui;
 import bibot.task.Task;
@@ -22,10 +23,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
         taskList.add(task);
         storage.saveTasks(taskList);
-        return "Got it. I've added thist ask: \n" + ui.getTaskString(task) + "\n"
+        return "Got it. I've added this task: \n" + ui.getTaskString(task) + "\n"
                 + ui.getTaskCountString(taskList);
     }
 }

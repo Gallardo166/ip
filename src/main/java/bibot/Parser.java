@@ -18,6 +18,52 @@ import bibot.task.ToDo;
 public class Parser {
     private boolean isFinished = false;
 
+    private static final String DEADLINE_SPLIT_KEY = " /by ";
+    private static final String EVENT_FIRST_SPLIT_KEY = " /from ";
+    private static final String EVENT_SECOND_SPLIT_KEY = " /to ";
+
+    private static final String UNKNOWN_COMMAND_MESSAGE = "I'm not familiar with that command...";
+
+    private enum InputCommand {
+        EXIT     ("^$",                   "Please use this format:\n     bye"),
+        LIST     ("^$",                   "Please use this format:\n     list"),
+        MARK     ("^[0-9]+$",             "Please use this format:\n     mark [index]"),
+        UNMARK   ("^[0-9]+",              "Please use this format:\n     unmark [index]"),
+        TODO     ("^.+$",                 "Please write the task description!"),
+        DEADLINE ("^.+ /by .+$",          "Please use this format:\n     deadline [description] /by [datetime]"),
+        EVENT    ("^.+ /from .+ /to .+$", "Please use this format:\n     event [description] /from [datetime] /to [datetime]"),
+        DELETE   ("^[0-9]+$",             "Please use this format:\n     delete [index]"),
+        FIND     ("^.+$",                 "Please use this format:\n     find [keyword]");
+
+        private String requiredBodyRegex;
+        private String errorMessage;
+
+        private InputCommand(String requiredBodyRegex, String errorMessage) {
+            this.requiredBodyRegex = requiredBodyRegex;
+            this.errorMessage = errorMessage;
+        }
+
+        public void checkValidBody(String inputBody) throws BibotException {
+            if (!inputBody.matches(this.requiredBodyRegex)) {
+                throw new BibotException(this.errorMessage);
+            }
+        }
+    }
+
+    private class InputData {
+        private InputCommand inputCommand;
+        private String inputBody;
+
+        public InputData(InputCommand inputCommand, String inputBody) {
+            this.inputCommand = inputCommand;
+            this.inputBody = inputBody;
+        }
+
+        public void checkValidBody() throws BibotException {
+            this.inputCommand.checkValidBody(this.inputBody);
+        }
+    }
+
     /**
      * Returns true if <code>Parser</code> has encountered the exit command.
      */
@@ -31,92 +77,125 @@ public class Parser {
      * @throws BibotException If input format is invalid.
      */
     public Command parse(String input) throws BibotException {
-        String[] splitInput = input.split(" ");
-        String keyword = splitInput[0];
-        int numArgs = splitInput.length;
-        Command command;
+        InputData inputData = getInputData(input);
+        inputData.checkValidBody();
 
-        switch (keyword) {
-        case "bye":
+        Command command = null;
+
+        switch (inputData.inputCommand) {
+        case EXIT:
             this.isFinished = true;
-            command = new ExitCommand();
+            command = createExitCommand();
             break;
-        case "list":
-            command = new ListCommand();
+        case LIST:
+            command = createListCommand();
             break;
-        case "mark":
-            if (!input.matches("^mark [0-9]+$")) {
-                throw new BibotException("Please use this format:\n     mark [index]");
-            } else {
-                // Solution below adapted from
-                // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                command = new MarkCommand(index);
-            }
+        case MARK:
+            command = createMarkCommand(inputData.inputBody);
             break;
-        case "unmark":
-            if (!input.matches("^unmark [0-9]+$")) {
-                throw new BibotException("Please use this format:\n     unmark [index]");
-            } else {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                command = new UnmarkCommand(index);
-            }
+        case UNMARK:
+            command = createUnmarkCommand(inputData.inputBody);
             break;
-        case "todo":
-            if (numArgs < 2) {
-                throw new BibotException("Please write the task description!");
-            } else { 
-                String description = input.replaceFirst("todo ", "");
-                ToDo todo = new ToDo(description);
-                command = new AddCommand(todo);
-            }
+        case TODO:
+            command = createAddTodoCommand(inputData.inputBody);
             break;
-        case "deadline":
-            if (numArgs < 4 || !input.matches(".+ /by .+")) {
-                throw new BibotException(
-                        "Please use this format:\n     deadline [description] /by [datetime]");
-            } else {
-                String description = input.split(" /by ")[0]
-                        .replaceFirst("deadline ", "");
-                String date = input.split(" /by ")[1];
-                Deadline deadline = new Deadline(description, date);
-                command = new AddCommand(deadline);
-            }
+        case DEADLINE:
+            command = createAddDeadlineCommand(inputData.inputBody);
             break;
-        case "event":
-            if (numArgs < 6 || !input.matches(".+ /from .+ /to .+")) {
-                throw new BibotException(
-                        "Please use this format:\n     event [description] /from [datetime] /to [datetime]");
-            } else {
-                String description = input.split(" /from ")[0].replaceFirst("event ", "");
-                String startDate = input.split(" /from ")[1].split(" /to ")[0];
-                String endDate = input.split(" /from ")[1].split(" /to ")[1];
-                Event event = new Event(description, startDate, endDate);
-                command = new AddCommand(event);
-            }
+        case EVENT:
+            command = createAddEventCommand(inputData.inputBody);
             break;
-        case "delete":
-            if (!input.matches("^delete [0-9]+$")) {
-                throw new BibotException("Please use this format:\n     delete [index]"); 
-            } else {
-                int index = Integer.parseInt(input.split(" +")[1]) - 1;
-                command = new DeleteCommand(index);
-            }
+        case DELETE:
+            command = createDeleteCommand(inputData.inputBody);
             break;
-        case "find":
-            if (numArgs < 2) {
-                throw new BibotException("Please use this format:\n     find [keyword]");
-            } else {
-                String searchKeyword = input.replaceFirst("find ", "");
-                command = new FindCommand(searchKeyword);
-            }
+        case FIND:
+            command = createFindCommand(inputData.inputBody);
             break;
         default:
-            throw new BibotException("I'm not familiar with that command...");
+            assert false : "This point should be unreachable";
         }
 
-        assert command != null : "null command";
-
+        assert command != null : "command should not be null";
+        
         return command;
+    }
+
+    private InputData getInputData(String input) throws BibotException {
+        String[] splitInput = input.split(" ");
+        String inputCommandString = splitInput[0];
+        InputCommand inputCommand = convertToEnum(inputCommandString);
+
+        String inputBody;
+        if (splitInput.length == 1) {
+            inputBody = "";
+        } else {
+            String untilFirstSpaceRegex = "[^ ]+ ";
+            inputBody = input.replaceFirst(untilFirstSpaceRegex, "");
+        }
+
+        return new InputData(inputCommand, inputBody);
+    }
+
+    private InputCommand convertToEnum(String inputCommandString) throws BibotException {
+        try {
+             return Enum.valueOf(InputCommand.class, inputCommandString.toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            throw new BibotException(UNKNOWN_COMMAND_MESSAGE);
+        }
+    }
+
+    private ExitCommand createExitCommand() {
+        return new ExitCommand();
+    }
+
+    private ListCommand createListCommand() {
+        return new ListCommand();
+    }
+
+    private MarkCommand createMarkCommand(String inputBody) {
+        // Solution below adapted from
+        // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
+        int index = Integer.parseInt(inputBody) - 1;
+        return new MarkCommand(index);
+    } 
+
+    private UnmarkCommand createUnmarkCommand(String inputBody) {
+        int index = Integer.parseInt(inputBody) - 1;
+        return new UnmarkCommand(index);
+    }
+
+    private AddCommand createAddTodoCommand(String inputBody) {
+        String description = inputBody;
+        ToDo todo = new ToDo(description);
+        return new AddCommand(todo);
+    }
+
+    private AddCommand createAddDeadlineCommand(String inputBody) throws BibotException {
+        String[] splitInputBody = inputBody.split(DEADLINE_SPLIT_KEY);
+        String description = splitInputBody[0];
+        String date = splitInputBody[1];
+        Deadline deadline = new Deadline(description, date);
+        return new AddCommand(deadline);
+    }
+
+    private AddCommand createAddEventCommand(String inputBody) {
+        String[] firstSplitInputBody = inputBody.split(EVENT_FIRST_SPLIT_KEY);
+        String description = firstSplitInputBody[0];
+
+        String[] secondSplitInputBody = firstSplitInputBody[1].split(EVENT_SECOND_SPLIT_KEY);
+        String startDate = secondSplitInputBody[0];
+        String endDate = secondSplitInputBody[1];
+        Event event = new Event(description, startDate, endDate);
+        return new AddCommand(event);
+    }
+
+
+    private DeleteCommand createDeleteCommand(String inputBody) {
+        int index = Integer.parseInt(inputBody) - 1;
+        return new DeleteCommand(index);
+    }
+
+    private FindCommand createFindCommand(String inputBody) {
+        return new FindCommand(inputBody);
     }
 }

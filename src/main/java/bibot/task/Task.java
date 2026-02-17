@@ -54,7 +54,7 @@ public class Task {
     /**
      * Returns the string representation to be written into storage file.
      */
-    public String fileString() {
+    public String getFileString() {
         String completionString = (this.isDone) ? "completed" : "not completed";
         return String.format("%s | %s", completionString, this.description);
     }
