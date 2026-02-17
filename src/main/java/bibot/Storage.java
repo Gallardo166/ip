@@ -27,6 +27,9 @@ public class Storage {
      */
     public Storage(String filePath) {
         String[] directories = filePath.split("/");
+
+        assert directories.length > 1 : "incorrect file path";
+
         this.root =  directories[1];
         this.filePath = filePath;
     }

@@ -115,7 +115,7 @@ public class Parser {
             assert false : "This point should be unreachable";
         }
 
-        assert command != null;
+        assert command != null : "command should not be null";
         
         return command;
     }
