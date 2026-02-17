@@ -80,7 +80,7 @@ public class Parser {
         InputData inputData = getInputData(input);
         inputData.checkValidBody();
 
-        Command command;
+        Command command = null;
 
         switch (inputData.inputCommand) {
         case EXIT:
@@ -114,6 +114,8 @@ public class Parser {
         default:
             assert false : "This point should be unreachable";
         }
+
+        assert command != null;
         
         return command;
     }
