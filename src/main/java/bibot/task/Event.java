@@ -32,7 +32,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String fileString() {
-        return "E | " + super.fileString() + " | " + this.startTime + " | " + this.endTime;
+    public String getFileString() {
+        return "E | " + super.getFileString() + " | " + this.startTime + " | " + this.endTime;
     }
 }

@@ -26,7 +26,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String fileString() {
-        return "T | " + super.fileString();
+    public String getFileString() {
+        return "T | " + super.getFileString();
     }
 }
