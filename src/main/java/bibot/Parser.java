@@ -80,7 +80,7 @@ public class Parser {
         InputData inputData = getInputData(input);
         inputData.checkValidBody();
 
-        Command command = null;
+        Command command;
 
         switch (inputData.inputCommand) {
         case EXIT:
