@@ -9,6 +9,7 @@ import bibot.task.TaskList;
 public class Ui {
     private static final String TASK_STRING_FORMAT = " %s";
     private static final String TASK_LIST_STRING_FORMAT = " %d. %s\n";
+    private static final String EMPTY_TASK_LIST_STRING_FORMAT = "None!";
     private static final String TASK_COUNT_STRING_FORMAT = "Now you have %d %s in the list.";
 
     /**
@@ -23,6 +24,9 @@ public class Ui {
      * specified <code>TaskList</code> with task-level indentation (1).
      */
     public String getTaskListString(TaskList taskList) {
+        if (taskList.getLength() == 0) {
+            return EMPTY_TASK_LIST_STRING_FORMAT;
+        }
         String taskListString = "";
         int taskNumber = 1;
         for (Task task: taskList) {

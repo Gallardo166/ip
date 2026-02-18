@@ -30,7 +30,7 @@ public class Main extends Application {
             AnchorPane mainLayout = fxmlLoader.load();
             Scene scene = new Scene(mainLayout);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBibot(bibot);
+            fxmlLoader.<MainWindow>getController().setup(this.bibot);
             stage.show();
         } catch (IOException exception) {
             exception.printStackTrace();
