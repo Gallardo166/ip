@@ -2,6 +2,8 @@ package bibot.gui;
 
 import bibot.Bibot;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -42,20 +44,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String response = bibot.getResponse(userInput.getText());
-        if (bibot.isFinished()) {
-            closeWindow();
-        }
-
         displayOutput(response);
         userInput.clear();
+
+        if (bibot.isFinished()) {
+            closeWindowWithDelay();
+        }
     }
 
-    private void closeWindow() {
+    private void closeWindowWithDelay() {
         //@@author Gallardo166-reused
-        //Reused from https://stackoverflow.com/a/22327908
+        //Reused from https://github.com/NUS-CS2103-AY2526-S2/forum/issues/160#issuecomment-3857719372
         // with minor modifications
-        Stage stage = (Stage) userInput.getScene().getWindow();
-        stage.close();
+        PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+        delay.setOnFinished((event) -> Platform.exit());
+        delay.play();
     }
 
     private void displayOutput(String response) {
