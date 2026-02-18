@@ -3,7 +3,7 @@ package bibot.task;
 /**
  * Represents a task managed by the chatbot application.
  */
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -41,6 +41,8 @@ public class Task {
     public boolean hasSubstring(String substring) {
         return this.description.contains(substring);
     }
+
+    public abstract boolean isUpcoming();
 
     @Override
     public String toString() {

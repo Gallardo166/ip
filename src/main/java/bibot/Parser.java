@@ -177,7 +177,7 @@ public class Parser {
         return new AddCommand(deadline);
     }
 
-    private AddCommand createAddEventCommand(String inputBody) {
+    private AddCommand createAddEventCommand(String inputBody) throws BibotException {
         String[] firstSplitInputBody = inputBody.split(EVENT_FIRST_SPLIT_KEY);
         String description = firstSplitInputBody[0];
 

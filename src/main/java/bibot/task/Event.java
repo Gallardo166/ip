@@ -1,38 +1,71 @@
 package bibot.task;
 
+import bibot.BibotException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task with a start time and end time.
  */
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    
+    private static final DateTimeFormatter INPUT_DATE_FORMAT
+            = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter DISPLAY_DATE_FORMAT
+            = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+    private static final String INVALID_FORMAT_ERROR_MESSAGE
+            = "Invalid datetime format: use dd/mm/yyyy hhmm (e.g. 12/02/2025 1400)";
+
+    private static final long UPCOMING_INTERVAL_IN_DAYS = 1;
 
     /**
      * Constructs a new <code>Event</code> representing a task with a start time and end time.
      * The <code>Event</code> is initially not completed.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws BibotException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDateTime.parse(startTime, INPUT_DATE_FORMAT);
+            this.endTime = LocalDateTime.parse(endTime, INPUT_DATE_FORMAT);
+        } catch (DateTimeParseException exception) {
+            throw new BibotException(INVALID_FORMAT_ERROR_MESSAGE);
+        }
     }
 
     /**
      * Constructs a new <code>Event</code> representing a task with a start time and end time.
      */
-    public Event(String description, String startTime, String endTime, boolean isDone) {
+    public Event(String description, String startTime, String endTime, boolean isDone) throws BibotException {
         super(description, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDateTime.parse(startTime, INPUT_DATE_FORMAT);
+            this.endTime = LocalDateTime.parse(endTime, INPUT_DATE_FORMAT);
+        } catch (DateTimeParseException exception) {
+            throw new BibotException(INVALID_FORMAT_ERROR_MESSAGE);
+        }
     }
 
     @Override
+    public boolean isUpcoming() {
+        LocalDateTime upcomingMaximum = LocalDateTime.now().plusDays(UPCOMING_INTERVAL_IN_DAYS);
+        return this.startTime.isBefore(upcomingMaximum);
+    }
+    @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
+        String formattedStartTime = this.startTime.format(DISPLAY_DATE_FORMAT);
+        String formattedEndTime = this.endTime.format(DISPLAY_DATE_FORMAT);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), formattedStartTime, formattedEndTime);
     }
 
     @Override
     public String getFileString() {
-        return "E | " + super.getFileString() + " | " + this.startTime + " | " + this.endTime;
+        String formattedStartTime = this.startTime.format(INPUT_DATE_FORMAT);
+        String formattedEndTime = this.endTime.format(INPUT_DATE_FORMAT);
+        return "E | " + super.getFileString() + " | " + formattedStartTime + " | " + formattedEndTime;
     }
 }
