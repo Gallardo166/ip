@@ -25,7 +25,7 @@ public class Parser {
     private static final String UNKNOWN_COMMAND_MESSAGE = "I'm not familiar with that command...";
 
     private enum InputCommand {
-        EXIT     ("^$",                   "Please use this format:\n     bye"),
+        BYE      ("^$",                   "Please use this format:\n     bye"),
         LIST     ("^$",                   "Please use this format:\n     list"),
         MARK     ("^[0-9]+$",             "Please use this format:\n     mark [index]"),
         UNMARK   ("^[0-9]+",              "Please use this format:\n     unmark [index]"),
@@ -83,7 +83,7 @@ public class Parser {
         Command command = null;
 
         switch (inputData.inputCommand) {
-        case EXIT:
+        case BYE:
             this.isFinished = true;
             command = createExitCommand();
             break;
@@ -153,8 +153,7 @@ public class Parser {
     }
 
     private MarkCommand createMarkCommand(String inputBody) {
-        // Solution below adapted from
-        // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
+        // Solution below adapted from https://stackoverflow.com/a/5585800
         int index = Integer.parseInt(inputBody) - 1;
         return new MarkCommand(index);
     } 

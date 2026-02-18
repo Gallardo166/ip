@@ -38,4 +38,7 @@ public class Bibot {
         }
     }
 
+    public boolean isFinished() {
+        return this.parser.isFinished();
+    }
 }

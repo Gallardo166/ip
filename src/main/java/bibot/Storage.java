@@ -59,14 +59,11 @@ public class Storage {
      */
     public void saveTasks(TaskList taskList) throws BibotException {
         try {
-            //@@author Gallardo166-reused
-            //Reused from https://stackoverflow.com/questions/28947250/create-a-directory-if-it-does-not-exist-and-then-create-the-files-in-that-direct
-            // with minor modifications
+            //Solution below adapted from https://stackoverflow.com/a/28948104
             File directory = new File("./" + root);
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            //@@author
             FileWriter fw = new FileWriter(filePath);
             for (Task task : taskList) {
                 fw.write(task.getFileString() + "\n");
