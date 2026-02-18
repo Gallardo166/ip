@@ -31,14 +31,31 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    public void setup(Bibot bibot) {
+        setBibot(bibot);
+        displayGreeting();
+        displayReminders();
+    }
+
+    private void setBibot(Bibot bibot) {
+        this.bibot = bibot;
+    }
+
+    private void displayGreeting() {
         String greeting = "Hello, I'm Bibot!\nWhat can I do for you?";
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(greeting, dukeImage)
         );
     }
 
-    public void setBibot(Bibot bibot) {
-        this.bibot = bibot;
+    private void displayReminders() {
+        String reminderResponse = bibot.getResponse("remind");
+
+        dialogContainer.getChildren().addAll(
+            DialogBox.getDukeDialog(reminderResponse, dukeImage)
+        );
     }
 
     @FXML
@@ -63,8 +80,8 @@ public class MainWindow extends AnchorPane {
 
     private void displayOutput(String response) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInput.getText(), userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getUserDialog(userInput.getText(), userImage),
+            DialogBox.getDukeDialog(response, dukeImage)
         );
     }
 }

@@ -21,6 +21,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public boolean isUpcoming() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

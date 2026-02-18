@@ -7,6 +7,7 @@ import bibot.command.ExitCommand;
 import bibot.command.FindCommand;
 import bibot.command.ListCommand;
 import bibot.command.MarkCommand;
+import bibot.command.RemindCommand;
 import bibot.command.UnmarkCommand;
 import bibot.task.Deadline;
 import bibot.task.Event;
@@ -33,7 +34,8 @@ public class Parser {
         DEADLINE ("^.+ /by .+$",          "Please use this format:\n     deadline [description] /by [datetime]"),
         EVENT    ("^.+ /from .+ /to .+$", "Please use this format:\n     event [description] /from [datetime] /to [datetime]"),
         DELETE   ("^[0-9]+$",             "Please use this format:\n     delete [index]"),
-        FIND     ("^.+$",                 "Please use this format:\n     find [keyword]");
+        FIND     ("^.+$",                 "Please use this format:\n     find [keyword]"),
+        REMIND   ("^$",                   "Please use this format:\n     remind");
 
         private String requiredBodyRegex;
         private String errorMessage;
@@ -111,6 +113,9 @@ public class Parser {
         case FIND:
             command = createFindCommand(inputData.inputBody);
             break;
+        case REMIND:
+            command = createRemindCommand();
+            break;
         default:
             assert false : "This point should be unreachable";
         }
@@ -177,7 +182,7 @@ public class Parser {
         return new AddCommand(deadline);
     }
 
-    private AddCommand createAddEventCommand(String inputBody) {
+    private AddCommand createAddEventCommand(String inputBody) throws BibotException {
         String[] firstSplitInputBody = inputBody.split(EVENT_FIRST_SPLIT_KEY);
         String description = firstSplitInputBody[0];
 
@@ -196,5 +201,9 @@ public class Parser {
 
     private FindCommand createFindCommand(String inputBody) {
         return new FindCommand(inputBody);
+    }
+
+    private RemindCommand createRemindCommand() {
+        return new RemindCommand();
     }
 }
