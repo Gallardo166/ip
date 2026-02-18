@@ -153,8 +153,7 @@ public class Parser {
     }
 
     private MarkCommand createMarkCommand(String inputBody) {
-        // Solution below adapted from
-        // https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java
+        // Solution below adapted from https://stackoverflow.com/a/5585800
         int index = Integer.parseInt(inputBody) - 1;
         return new MarkCommand(index);
     } 
