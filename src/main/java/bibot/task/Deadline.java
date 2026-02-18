@@ -53,8 +53,9 @@ public class Deadline extends Task {
 
     @Override
     public boolean isUpcoming() {
-        LocalDateTime upcomingMaximum = LocalDateTime.now().plusDays(UPCOMING_INTERVAL_IN_DAYS);
-        return this.date.isBefore(upcomingMaximum);
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime upcomingMaximum = currentTime.plusDays(UPCOMING_INTERVAL_IN_DAYS);
+        return this.date.isAfter(currentTime) && this.date.isBefore(upcomingMaximum);
     }
 
     @Override

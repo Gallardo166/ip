@@ -52,8 +52,9 @@ public class Event extends Task {
 
     @Override
     public boolean isUpcoming() {
-        LocalDateTime upcomingMaximum = LocalDateTime.now().plusDays(UPCOMING_INTERVAL_IN_DAYS);
-        return this.startTime.isBefore(upcomingMaximum);
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime upcomingMaximum = currentTime.plusDays(UPCOMING_INTERVAL_IN_DAYS);
+        return this.startTime.isAfter(currentTime) && this.startTime.isBefore(upcomingMaximum);
     }
     @Override
     public String toString() {
