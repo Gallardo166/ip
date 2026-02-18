@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -41,11 +42,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String response = bibot.getResponse(userInput.getText());
+        if (bibot.isFinished()) {
+            closeWindow();
+        }
+
+        displayOutput(response);
+        userInput.clear();
+    }
+
+    private void closeWindow() {
+        //@@author Gallardo166-reused
+        //Reused from https://stackoverflow.com/a/22327908
+        // with minor modifications
+        Stage stage = (Stage) userInput.getScene().getWindow();
+        stage.close();
+    }
+
+    private void displayOutput(String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        userInput.clear();
     }
-
 }

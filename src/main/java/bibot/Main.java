@@ -1,8 +1,9 @@
 package bibot;
 
+import bibot.gui.MainWindow;
+
 import java.io.IOException;
 
-import bibot.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
