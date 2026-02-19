@@ -25,8 +25,11 @@ public class MainWindow extends AnchorPane {
 
     private Bibot bibot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bibot.jpg"));
+
+    private static final String INITIAL_GREETING = "Hello, I'm Bibot!\nWhat can I do for you?";
+    private static final String INITIAL_COMMAND = "remind";
 
     @FXML
     public void initialize() {
@@ -44,14 +47,13 @@ public class MainWindow extends AnchorPane {
     }
 
     private void displayGreeting() {
-        String greeting = "Hello, I'm Bibot!\nWhat can I do for you?";
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(greeting, dukeImage)
+            DialogBox.getDukeDialog(INITIAL_GREETING, dukeImage)
         );
     }
 
     private void displayReminders() {
-        String reminderResponse = bibot.getResponse("remind");
+        String reminderResponse = bibot.getResponse(INITIAL_COMMAND);
 
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(reminderResponse, dukeImage)
