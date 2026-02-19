@@ -19,9 +19,14 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private static final String FILE_PATH = "/view/DialogBox.fxml";
+
+    private static final String USER_LABEL_CLASS_NAME = "user-label-color";
+    private static final String REPLY_LABEL_CLASS_NAME = "reply-label-color";
+
     public DialogBox(String text, Image image) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(FILE_PATH));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -40,13 +45,24 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(children);
     }
 
+    private void setUserStyle() {
+        dialog.getStyleClass().add(USER_LABEL_CLASS_NAME);
+    }
+
+    private void setReplyStyle() {
+        dialog.getStyleClass().add(REPLY_LABEL_CLASS_NAME);
+    }
+
     public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(text, image);
+        DialogBox dialogBox = new DialogBox(text, image);
+        dialogBox.setUserStyle();
+        return dialogBox;
     }
 
     public static DialogBox getDukeDialog(String text, Image image) {
         DialogBox dialogBox = new DialogBox(text, image);
         dialogBox.flip();
+        dialogBox.setReplyStyle();
         return dialogBox;
     }
 }
