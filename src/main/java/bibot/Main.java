@@ -13,17 +13,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Bibot bibot;
 
-    private static final String DEFAULT_FILE_PATH = "./data/tasks.txt";
+    private static final String SAVE_FILE_PATH = "./data/tasks.txt";
     
     private static final int MINIMUM_HEIGHT = 220;
     private static final int MINIMUM_WIDTH = 417;
 
     public Main() {
-        this.bibot = new Bibot(DEFAULT_FILE_PATH);
-    }
-
-    public Main(String filePath) {
-        this.bibot = new Bibot(filePath);
+        this.bibot = new Bibot(SAVE_FILE_PATH);
     }
 
     private void setMinimumSize(Stage stage) {

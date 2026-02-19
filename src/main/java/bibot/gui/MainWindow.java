@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bibot.jpg"));
 
     private static final String INITIAL_GREETING = "Hello, I'm Bibot!\nWhat can I do for you?";
-    private static final String INITIAL_COMMAND = "remind";
+    private static final String INITIAL_REMIND_COMMAND = "remind";
 
     @FXML
     public void initialize() {
@@ -37,33 +37,47 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setup(Bibot bibot) {
-        setBibot(bibot);
-        displayGreeting();
+        this.bibot = bibot;
+        displayInitialMessages();
+    }
+
+    private void displayInitialMessages() {
+        displayReplyText(INITIAL_GREETING);
+
+        String loadErrorMessage = this.bibot.getLoadErrorMessage();
+        if (loadErrorMessage != null) {
+            displayReplyText(loadErrorMessage);
+        }
+        
         displayReminders();
     }
 
-    private void setBibot(Bibot bibot) {
-        this.bibot = bibot;
-    }
-
-    private void displayGreeting() {
+    private void displayReplyText(String text) {
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(INITIAL_GREETING, dukeImage)
+                DialogBox.getDukeDialog(text, dukeImage)
         );
     }
+
+    private void displayUserText(String text) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(text, userImage)
+        );
+    }
+
 
     private void displayReminders() {
-        String reminderResponse = bibot.getResponse(INITIAL_COMMAND);
-
-        dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(reminderResponse, dukeImage)
-        );
+        String reminderResponse = bibot.getResponse(INITIAL_REMIND_COMMAND);
+        displayReplyText(reminderResponse);
     }
 
     @FXML
     private void handleUserInput() {
-        String response = bibot.getResponse(userInput.getText());
-        displayOutput(response);
+        String userInputText = userInput.getText();
+        displayUserText(userInputText);
+
+        String response = bibot.getResponse(userInputText);
+        displayReplyText(response);
+
         userInput.clear();
 
         if (bibot.isFinished()) {
@@ -78,12 +92,5 @@ public class MainWindow extends AnchorPane {
         PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
         delay.setOnFinished((event) -> Platform.exit());
         delay.play();
-    }
-
-    private void displayOutput(String response) {
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(userInput.getText(), userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
-        );
     }
 }

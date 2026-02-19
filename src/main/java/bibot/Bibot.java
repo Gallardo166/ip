@@ -11,6 +11,7 @@ public class Bibot {
     private TaskList taskList;
     private Parser parser;
     private Ui ui;
+    private String loadErrorMessage = null;
 
     /**
      * Constructs a new <code>Bibot</code> representing the chatbot application.
@@ -21,7 +22,14 @@ public class Bibot {
         assert !filePath.equals("") : "filePath should not be empty";
 
         this.storage = new Storage(filePath);
-        this.taskList = storage.loadTasks();
+
+        try {
+            this.taskList = this.storage.loadTasks();
+        } catch (BibotException exception) {
+            this.loadErrorMessage = exception.getMessage();
+            this.taskList = new TaskList();
+        }
+
         this.parser = new Parser();
         this.ui = new Ui();
     }
@@ -31,8 +39,8 @@ public class Bibot {
      */
     public String getResponse(String input) {
         try {
-            Command command = parser.parse(input);
-            return command.execute(taskList, ui, storage);
+            Command command = this.parser.parse(input);
+            return command.execute(this.taskList, this.ui, this.storage);
         } catch (BibotException exception) {
             return exception.getMessage();
         }
@@ -40,5 +48,9 @@ public class Bibot {
 
     public boolean isFinished() {
         return this.parser.isFinished();
+    }
+
+    public String getLoadErrorMessage() {
+        return this.loadErrorMessage;
     }
 }

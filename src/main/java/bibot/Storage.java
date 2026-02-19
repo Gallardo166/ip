@@ -18,6 +18,13 @@ import java.util.Scanner;
 public class Storage {
     private String root;
     private String filePath; 
+
+    private static final String FILE_NOT_FOUND_ERROR_MESSAGE = "Unable to find savefile, creating new one...";
+    private static final String FILE_FORMAT_ERROR_MESSAGE = "Incorrect format in file encountered.";
+    private static final String FILE_SAVE_ERROR_MESSAGE = "Unable to save file...";
+
+    private static final String FILE_TEXT_SPLIT_KEY = " \\| ";
+    private static final String COMPLETED_TASK_STRING = "completed";
     
     /**
      * Constructs a new <code>Storage</code> representing the component
@@ -38,7 +45,7 @@ public class Storage {
      * Reads tasks from the storage file and returns a <code>TaskList</code>.
      * If storage file is not found, returns an empty <code>TaskList</code>.
      */
-    public TaskList loadTasks() {
+    public TaskList loadTasks() throws BibotException {
         TaskList taskList = new TaskList();
         try {
             File f = new File(filePath);
@@ -48,8 +55,8 @@ public class Storage {
             }
             s.close();
             return taskList;
-        } catch (FileNotFoundException | BibotException exception) {
-            return taskList;
+        } catch (FileNotFoundException exception) {
+            throw new BibotException(FILE_NOT_FOUND_ERROR_MESSAGE);
         }
     }
 
@@ -70,14 +77,14 @@ public class Storage {
             }
             fw.close();
         } catch (IOException exception) {  
-            throw new BibotException("Something went wrong: " + exception.getMessage());
+            throw new BibotException(FILE_SAVE_ERROR_MESSAGE);
         }
     }
 
     private Task createTask(String line) throws BibotException {
-        String[] splitLine = line.split(" \\| ");
+        String[] splitLine = line.split(FILE_TEXT_SPLIT_KEY);
         String taskType = splitLine[0];
-        boolean isDone = splitLine[1].equals("completed");
+        boolean isDone = splitLine[1].equals(COMPLETED_TASK_STRING);
 
         if (taskType.equals("T")) {
             return new ToDo(splitLine[2], isDone);
@@ -86,7 +93,7 @@ public class Storage {
         } else if (taskType.equals("E")) {
             return new Event(splitLine[2], splitLine[3], splitLine[4], isDone);
         } else {
-            throw new BibotException("Incorrect format in file encountered.");
+            throw new BibotException(FILE_FORMAT_ERROR_MESSAGE);
         }
     } 
 }
