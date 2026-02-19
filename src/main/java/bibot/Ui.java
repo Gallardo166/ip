@@ -7,9 +7,10 @@ import bibot.task.TaskList;
  * Represents component that formats replies to user.
  */
 public class Ui {
+
+    private static final String EMPTY_TASK_LIST_STRING_FORMAT = "None!";
     private static final String TASK_STRING_FORMAT = " %s";
     private static final String TASK_LIST_STRING_FORMAT = " %d. %s\n";
-    private static final String EMPTY_TASK_LIST_STRING_FORMAT = "None!";
     private static final String TASK_COUNT_STRING_FORMAT = "Now you have %d %s in the list.";
 
     /**
@@ -20,8 +21,8 @@ public class Ui {
     }
 
     /**
-     * Returns a numbered list of <code>Task</code>s as strings in the
-     * specified <code>TaskList</code> with task-level indentation (1).
+     * Returns a numbered list of <code>Task</code>s in the specified <code>TaskList</code> 
+     * as a string with task-level indentation (1).
      */
     public String getTaskListString(TaskList taskList) {
         if (taskList.getLength() == 0) {

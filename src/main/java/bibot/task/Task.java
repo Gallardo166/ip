@@ -38,6 +38,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns true if the <code>Task</code> description contains the given substring,
+     * and false otherwise.
+     */
     public boolean hasSubstring(String substring) {
         return this.description.contains(substring);
     }

@@ -12,6 +12,8 @@ import bibot.task.TaskList;
 public class AddCommand extends Command {
     private Task task;
 
+    private static final String REPLY_STRING_FORMAT = "Got it. I've added this task: \n%s\n%s";
+
     /**
      * Constructs a new <code>AddCommand</code> representing the
      * executable command for adding a task into the task list.
@@ -24,9 +26,9 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
-        taskList.add(task);
+        taskList.add(this.task);
         storage.saveTasks(taskList);
-        return "Got it. I've added this task: \n" + ui.getTaskString(task) + "\n"
-                + ui.getTaskCountString(taskList);
+        return String.format(REPLY_STRING_FORMAT, ui.getTaskString(this.task),
+                ui.getTaskCountString(taskList));
     }
 }

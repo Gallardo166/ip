@@ -17,7 +17,7 @@ public class TaskList implements Iterable<Task> {
      * Inserts given <code>Task</code> to the end of the list.
      */
     public void add(Task task) {
-        tasks.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -28,10 +28,10 @@ public class TaskList implements Iterable<Task> {
      * @throws BibotException If there is no task in given index.
      */
     public void markTask(int index) throws BibotException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new BibotException("There's no such task!");
         } else {
-            tasks.get(index).markAsDone();
+            this.tasks.get(index).markAsDone();
         }
     }
 
@@ -43,10 +43,10 @@ public class TaskList implements Iterable<Task> {
      * @throws BibotException If there is no task in given index.
      */
     public void unmarkTask(int index) throws BibotException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new BibotException("There's no such task!");
         } else {
-            tasks.get(index).markAsUndone();
+            this.tasks.get(index).markAsUndone();
         }
     }
 
@@ -60,10 +60,10 @@ public class TaskList implements Iterable<Task> {
      * @throws BibotException If there is no task in given index.
      */
     public Task deleteTask(int index) throws BibotException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new BibotException("There's no such task!");
         } else {
-            return tasks.remove(index);
+            return this.tasks.remove(index);
         }
     }
 
@@ -74,10 +74,10 @@ public class TaskList implements Iterable<Task> {
      * @throws BibotException If there is no task in given index.
      */
     public Task get(int index) throws BibotException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new BibotException("There's no such task!");
         } else {
-            return tasks.get(index);
+            return this.tasks.get(index);
         }
     }
 
@@ -89,7 +89,7 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList filter(Predicate<Task> predicate) {
         TaskList newTaskList = new TaskList();
-        for (Task task: tasks) {
+        for (Task task: this.tasks) {
             if (predicate.test(task)) {
                 newTaskList.add(task);
             }
@@ -101,11 +101,11 @@ public class TaskList implements Iterable<Task> {
      * Returns length of the list.
      */
     public int getLength() {
-        return tasks.size(); 
+        return this.tasks.size(); 
     }
 
     @Override
     public Iterator<Task> iterator() {
-        return tasks.iterator();
+        return this.tasks.iterator();
     }
 }

@@ -11,6 +11,8 @@ import bibot.task.TaskList;
 public class UnmarkCommand extends Command {
     private int index;
 
+    private static final String REPLY_STRING_FORMAT = "OK, I've marked this task as not done yet: \n%s";
+
     /**
      * Constructs a new <code>UnmarkCommand</code> representing the
      * executable command that marks a task as not completed.
@@ -23,8 +25,8 @@ public class UnmarkCommand extends Command {
     
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
-        taskList.unmarkTask(index);
+        taskList.unmarkTask(this.index);
         storage.saveTasks(taskList);
-        return "OK, I've marked this task as not done yet: \n" + ui.getTaskString(taskList.get(index)); 
+        return String.format(REPLY_STRING_FORMAT, ui.getTaskString(taskList.get(this.index)));
     }
 }

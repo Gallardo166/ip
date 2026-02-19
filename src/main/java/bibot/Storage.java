@@ -44,11 +44,13 @@ public class Storage {
     /**
      * Reads tasks from the storage file and returns a <code>TaskList</code>.
      * If storage file is not found, returns an empty <code>TaskList</code>.
+     *
+     * @throws BibotException If file is not found or has wrong text format.
      */
     public TaskList loadTasks() throws BibotException {
         TaskList taskList = new TaskList();
         try {
-            File f = new File(filePath);
+            File f = new File(this.filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 taskList.add(createTask(s.nextLine()));
@@ -63,15 +65,17 @@ public class Storage {
     /**
      * Writes tasks in the specified <code>TaskList</code>
      * to the storage file.
+     *
+     * @throws BibotException If an I/O error occurs.
      */
     public void saveTasks(TaskList taskList) throws BibotException {
         try {
             //Solution below adapted from https://stackoverflow.com/a/28948104
-            File directory = new File("./" + root);
+            File directory = new File("./" + this.root);
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(this.filePath);
             for (Task task : taskList) {
                 fw.write(task.getFileString() + "\n");
             }

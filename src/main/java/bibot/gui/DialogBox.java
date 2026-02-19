@@ -34,8 +34,8 @@ public class DialogBox extends HBox {
             exception.printStackTrace();
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(image);
+        this.dialog.setText(text);
+        this.displayPicture.setImage(image);
     }
 
     private void flip() {
@@ -46,11 +46,11 @@ public class DialogBox extends HBox {
     }
 
     private void setUserStyle() {
-        dialog.getStyleClass().add(USER_LABEL_CLASS_NAME);
+        this.dialog.getStyleClass().add(USER_LABEL_CLASS_NAME);
     }
 
     private void setReplyStyle() {
-        dialog.getStyleClass().add(REPLY_LABEL_CLASS_NAME);
+        this.dialog.getStyleClass().add(REPLY_LABEL_CLASS_NAME);
     }
 
     public static DialogBox getUserDialog(String text, Image image) {

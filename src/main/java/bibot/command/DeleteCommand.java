@@ -12,6 +12,8 @@ import bibot.task.TaskList;
 public class DeleteCommand extends Command {
     private int index;
 
+    private static final String REPLY_STRING_FORMAT = "Noted. I've removed this task: \n%s\n%s";
+
     /**
      * Constructs a new <code>DeleteCommand</code> representing the
      * executable command that deletes a task from the task list.
@@ -24,9 +26,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws BibotException {
-        Task deletedTask = taskList.deleteTask(index);
+        Task deletedTask = taskList.deleteTask(this.index);
         storage.saveTasks(taskList);
-        return "Noted. I've removed this task: \n" + ui.getTaskString(deletedTask) + "\n"
-                + ui.getTaskCountString(taskList);
+        return String.format(REPLY_STRING_FORMAT, ui.getTaskString(deletedTask),
+                ui.getTaskCountString(taskList));
     }
 }

@@ -11,6 +11,8 @@ import bibot.task.TaskList;
 public class FindCommand extends Command {
     private String keyword;
 
+    private static final String REPLY_STRING_FORMAT = "Here are the matching tasks in your list: \n%s";
+
     /**
      * Constructs a new <code>FindCommand</code> representing the
      * executable command that displays tasks containing the given keyword.
@@ -21,7 +23,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        TaskList matchingTasks = taskList.filter((Task task) -> task.hasSubstring(keyword));
-        return "Here are the matching tasks in your list: \n" + ui.getTaskListString(matchingTasks);
+        TaskList matchingTasks = taskList.filter((Task task) -> task.hasSubstring(this.keyword));
+        return String.format(REPLY_STRING_FORMAT, ui.getTaskListString(matchingTasks));
     }
 }
