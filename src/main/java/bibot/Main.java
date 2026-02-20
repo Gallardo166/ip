@@ -34,6 +34,7 @@ public class Main extends Application {
             AnchorPane mainLayout = fxmlLoader.load();
             Scene scene = new Scene(mainLayout);
             stage.setScene(scene);
+            stage.setTitle("Bibot");
             setMinimumSize(stage);
             fxmlLoader.<MainWindow>getController().setup(this.bibot);
             stage.show();
